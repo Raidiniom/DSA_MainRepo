@@ -50,6 +50,28 @@ void insert_leaf(NodePtr *tree, int data) {
     printf("Insertion is successful!\n");
 }
 
+// Get the depth or height of the tree
+int tree_height(NodePtr tree) {
+    // 
+}
+
+// Get the width of the tree
+int tree_width(NodePtr tree) {
+    // 
+}
+
+// Search Function
+bool search_leaf(NodePtr tree, int to_find) {
+    /* Traverse through the tree maybe going at the left side first? */
+
+    return false;
+}
+
+// Remove / Delete function
+int remove_leaf(NodePtr *tree, int to_delete) {
+    // 
+}
+
 void in_order(NodePtr tree) {
     if(tree != NULL) {
         // visit the left side of the tree
