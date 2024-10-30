@@ -111,7 +111,25 @@ Traffic_Data dequeue_data(Traffic_Report *report) {
         return create_Traffic_Data(0, 0);
     }
     
+    deleted_data = report->list[report->count - 1];
 
+    report->count--;
+
+    int index = 0, lesser;
+
+    while (index < report->count)
+    {
+        int left = (2 * index) + 1;
+
+        if (left >= report->count) break;
+
+        if (left + 1 < report->count && report->list[left + 1].type > report->list[left].type)
+        {
+            /* code */
+        }
+        
+        
+    }
 
 
     return deleted_data;
