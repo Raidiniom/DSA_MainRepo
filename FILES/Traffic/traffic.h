@@ -104,14 +104,14 @@ void enqueue_data(Traffic_Report *report, Traffic_Data data) {
 }
 
 Traffic_Data dequeue_data(Traffic_Report *report) {
-    Traffic_Data deleted_data;
+    Traffic_Data end_data;
 
-    if (report->count >= 20)
+    if (report->count <= 0)
     {
         return create_Traffic_Data(0, 0);
     }
     
-    deleted_data = report->list[report->count - 1];
+    end_data = report->list[report->count - 1];
 
     (report->count)--;
 
@@ -133,16 +133,16 @@ Traffic_Data dequeue_data(Traffic_Report *report) {
         }
 
 
-        if (deleted_data.type <= report->list[less].type) break;
+        if (end_data.type <= report->list[less].type) break;
         
         report->list[index] = report->list[less];
         
         index = less;
     }
 
-    report->list[index] = deleted_data;
+    report->list[index] = end_data;
 
-    return deleted_data;
+    return end_data;
 }
 
 int total_time(String filename) {
@@ -180,8 +180,7 @@ int total_time(String filename) {
 
     for (int j = 0; j < temp_report.count && temp_report.list[j].type < PM; j++)
     {
-        Traffic_Data hold = temp_report.list[j];
-        sum_time += hold.sec;
+        sum_time += temp_report.list[j].sec;
         dequeue_data(&temp_report);
     }
     
@@ -189,7 +188,7 @@ int total_time(String filename) {
 }
 
 void display_data(Traffic_Data data) {
-    printf("%20s      %d", convert_enum(data.type), data.sec);
+    printf("  %30s    -    %d", convert_enum(data.type), data.sec);
 }
 
 void display_report(Traffic_Report report) {
