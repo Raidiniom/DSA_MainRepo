@@ -53,3 +53,9 @@ dkms.conf
 
 # Compiled C file
 out
+gendat
+readat
+
+# Some files
+*.dat
+*.txt

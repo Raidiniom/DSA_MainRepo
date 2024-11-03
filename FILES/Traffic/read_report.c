@@ -8,7 +8,7 @@ int main() {
 
     Traffic_Data data;
 
-    touch_filename = fopen("trafficreport.txt", "rb");
+    touch_filename = fopen("trafficreport.dat", "rb");
 
     if (touch_filename != NULL)
     {
@@ -23,6 +23,7 @@ int main() {
 
     fclose(touch_filename);
     
+    printf("\n\nTotal Time: %d\n\n", total_time("trafficreport.dat"));
 
     return 0;
 }

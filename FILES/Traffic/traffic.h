@@ -113,9 +113,9 @@ Traffic_Data dequeue_data(Traffic_Report *report) {
     
     deleted_data = report->list[report->count - 1];
 
-    report->count--;
+    (report->count)--;
 
-    int index = 0, lesser;
+    int index = 0, less;
 
     while (index < report->count)
     {
@@ -123,16 +123,69 @@ Traffic_Data dequeue_data(Traffic_Report *report) {
 
         if (left >= report->count) break;
 
-        if (left + 1 < report->count && report->list[left + 1].type > report->list[left].type)
+        if (left + 1 < report->count && report->list[left + 1].type < report->list[left].type)
         {
-            /* code */
+            less = left + 1;
         }
+        else
+        {
+            less = left;
+        }
+
+
+        if (deleted_data.type <= report->list[less].type) break;
         
+        report->list[index] = report->list[less];
         
+        index = less;
     }
 
+    report->list[index] = deleted_data;
 
     return deleted_data;
+}
+
+int total_time(String filename) {
+    FILE *this_file = fopen(filename, "rb");
+
+    int sum_time = 0;
+
+    if (this_file == NULL)
+    {
+        return sum_time;
+    }
+
+    Traffic_Report temp_report;
+    init_Traffic_Report(&temp_report);
+
+    fread(&temp_report.count, sizeof(int), 1, this_file);
+
+    for (int i = 0; i < temp_report.count; i++)
+    {
+        Traffic_Data data_format;
+
+        if (fread(&data_format, sizeof(Traffic_Data), 1, this_file) == 1)
+        {
+            temp_report.list[i] = data_format;
+        }
+        else
+        {
+            fclose(this_file);
+
+            return sum_time;
+        }
+    }
+
+    fclose(this_file);
+
+    for (int j = 0; j < temp_report.count && temp_report.list[j].type < PM; j++)
+    {
+        Traffic_Data hold = temp_report.list[j];
+        sum_time += hold.sec;
+        dequeue_data(&temp_report);
+    }
+    
+    return sum_time;
 }
 
 void display_data(Traffic_Data data) {
