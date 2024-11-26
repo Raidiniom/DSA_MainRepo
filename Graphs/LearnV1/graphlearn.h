@@ -1,6 +1,8 @@
 #ifndef GRAPHLEARN_H
 #define GRAPHLEARN_H
 
+// ADJACENCY MATRIX
+
 #include <stdio.h>
 #include <stdlib.h>
 

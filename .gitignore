@@ -55,6 +55,7 @@ dkms.conf
 out
 gendat
 readat
+learning
 
 # Some files
 *.dat
