@@ -9,18 +9,42 @@ int main() {
     create_queue(&movie_queue);
 
     // Create some people (movie goers)
-    Person person1 = create_movie_goers("Alice", 25, Adult);
-    Person person2 = create_movie_goers("Bob", 17, Teens);
-    Person person3 = create_movie_goers("Charlie", 35, Adult);
+    Person people[] = {
+        create_movie_goers("Alice", 25, G),
+        create_movie_goers("Bob", 15, R),
+        create_movie_goers("Charlie", 60, R),
+        create_movie_goers("Diana", 9, R),
+        create_movie_goers("Ethan", 34, R),
+        create_movie_goers("Fiona", 18, PG),
+        create_movie_goers("George", 48, PG_13),
+        create_movie_goers("Helen", 67, G),
+        create_movie_goers("Ian", 5, NC_17),
+        create_movie_goers("Jack", 27, NC_17),
+        create_movie_goers("Kara", 13, PG),
+        create_movie_goers("Liam", 21, R),
+        create_movie_goers("Mona", 37, R),
+        create_movie_goers("Nina", 12, NC_17),
+        create_movie_goers("Oscar", 40, PG),
+        create_movie_goers("Penny", 16, G),
+        create_movie_goers("Quincy", 24, NC_17),
+        create_movie_goers("Rachel", 29, PG),
+        create_movie_goers("Steve", 11, G),
+        create_movie_goers("Tina", 14, PG)
+    };
 
-    // Enqueue people to the queue
-    enqueue(&movie_queue, person1);
-    enqueue(&movie_queue, person2);
-    enqueue(&movie_queue, person3);
+    for (int i = 0; i < 20; i++)
+    {
+        enqueue(&movie_queue, people[i]);
+    }
+    
+    debug_queue(movie_queue, 6, "The Revengers");
 
-    // Debug the queue and print the people in it
-    printf("Queue:\n");
-    debug_queue(movie_queue);
+    Queue proccessed;
+    create_queue(&proccessed);
+
+    proccessed.front = allowed_entrance(&movie_queue);
+
+    debug_queue(proccessed, 6, "The Revengers");
 
     return 0;
 }

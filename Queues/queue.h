@@ -8,12 +8,11 @@
 
 // Movie Theater
 typedef enum {
-    New_Spawn,
-    Everyone,
-    Pre_Teens,
-    Teens,
-    Adult,
-    Ancient
+    G = 1, // All ages
+    PG, // 8 and above
+    PG_13, // 13 and above
+    NC_17, // 18 and above
+    R, // 30 and above
 } Ratings;
 
 typedef char String[20];
@@ -54,6 +53,10 @@ bool is_empty(Queue queue) {
     return queue.front == NULL;
 }
 
+Person peek(Queue queue) {
+    return queue.front->movie_goers;
+}
+
 void enqueue(Queue *queue, Person in_line) {
     NodePtr new_node =(NodePtr) malloc(sizeof(Node));
 
@@ -73,9 +76,70 @@ void enqueue(Queue *queue, Person in_line) {
     
 }
 
-void debug_queue(Queue queue) {
+void dequeue(Queue *queue) {
+
+    if (queue->front == queue->rear)
+    {
+        free(queue->front);
+
+        return;
+    }
+    
+
+    NodePtr delete_this = queue->front;
+
+    queue->front = queue->front->next;
+
+    free(delete_this);
+}
+
+bool check_ticket(Person person) {
+    switch (person.movie) {
+        case G:
+            return person.age >= 0;
+        case PG:
+            return person.age >= 8;
+        case PG_13:
+            return person.age >= 13;
+        case NC_17:
+            return person.age >= 18;
+        case R:
+            return person.age >= 30;
+        default:
+            return false;
+    }
+}
+
+NodePtr allowed_entrance(Queue *queue) {
+    NodePtr allowed = NULL, trav =  queue->front;
+
+    while (trav != NULL)
+    {
+        if (check_ticket(trav->movie_goers))
+        {
+            NodePtr new_node =(NodePtr) malloc(sizeof(Node));
+
+            new_node->movie_goers = trav->movie_goers;
+            new_node->next = allowed;
+            allowed = new_node;
+        }
+        
+
+        trav = trav->next;
+    }
+    
+
+    return allowed;
+}
+
+void allowed_entrance_v2(Queue *queue, Ratings rate) {
+    // 
+}
+
+void debug_queue(Queue queue, int cinema_room_no, String movie_title) {
     NodePtr temp = queue.front;
 
+    printf("Cinema Room #%d === %s ===\n", cinema_room_no, movie_title);
     while (temp != NULL)
     {
         printf("%s, %d \n", temp->movie_goers.name, temp->movie_goers.age);
