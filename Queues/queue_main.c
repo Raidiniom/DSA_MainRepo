@@ -37,14 +37,20 @@ int main() {
         enqueue(&movie_queue, people[i]);
     }
     
-    debug_queue(movie_queue, 6, "The Revengers");
+     // Display the initial movie line
+    printf("Initial movie queue:\n");
+    movie_line(movie_queue, 6, "The Revengers");
 
-    Queue proccessed;
-    create_queue(&proccessed);
+    // Process the queue for R-rated movie eligibility
+    Queue processed = allowed_entrance_v2(&movie_queue, R);
 
-    proccessed.front = allowed_entrance(&movie_queue);
+    // Display the processed queue (allowed entrance for R-rated movie)
+    printf("\nAllowed entrance (R-rated movie):\n");
+    movie_line(processed, 6, "The Revengers (R-rated)");
 
-    debug_queue(proccessed, 6, "The Revengers");
-
+    // Display the remaining queue
+    printf("\nRemaining queue after processing:\n");
+    movie_line(movie_queue, 6, "The Revengers");
+    
     return 0;
 }

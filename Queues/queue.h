@@ -93,8 +93,8 @@ void dequeue(Queue *queue) {
     free(delete_this);
 }
 
-bool check_ticket(Person person) {
-    switch (person.movie) {
+bool check_ticket(Person person, Ratings movie) {
+    switch (movie) {
         case G:
             return person.age >= 0;
         case PG:
@@ -110,12 +110,12 @@ bool check_ticket(Person person) {
     }
 }
 
-NodePtr allowed_entrance(Queue *queue) {
+NodePtr allowed_entrance(Queue *queue, Ratings rating) {
     NodePtr allowed = NULL, trav =  queue->front;
 
     while (trav != NULL)
     {
-        if (check_ticket(trav->movie_goers))
+        if (check_ticket(trav->movie_goers, rating))
         {
             NodePtr new_node =(NodePtr) malloc(sizeof(Node));
 
@@ -132,11 +132,63 @@ NodePtr allowed_entrance(Queue *queue) {
     return allowed;
 }
 
-void allowed_entrance_v2(Queue *queue, Ratings rate) {
-    // 
+Queue allowed_entrance_v2(Queue *queue, Ratings rate) {
+    Queue allowed;
+    create_queue(&allowed);
+
+    if (!is_empty(*queue))
+    {
+
+        NodePtr prev = NULL, curr = queue->front;
+
+
+        while (curr != NULL)
+        {
+            if (check_ticket(curr->movie_goers, rate))
+            {
+                NodePtr trav = curr;
+                
+                if (prev == NULL)
+                {
+                    queue->front = curr->next;
+                }
+                else
+                {
+                    prev->next = curr->next;
+                }
+                
+                curr = curr->next;
+
+                trav->next = NULL;
+
+                if (allowed.rear == NULL)
+                {
+                    allowed.front = allowed.rear = trav;
+                }
+                else
+                {
+                    allowed.rear->next = trav;
+                    allowed.rear = trav;
+                }
+                
+            }
+            else
+            {
+                prev = curr;
+                curr = curr->next;
+            }
+        }
+
+        if (queue->front == NULL)
+        {
+            queue->rear = NULL;
+        }
+    }
+    
+    return allowed;
 }
 
-void debug_queue(Queue queue, int cinema_room_no, String movie_title) {
+void movie_line(Queue queue, int cinema_room_no, String movie_title) {
     NodePtr temp = queue.front;
 
     printf("Cinema Room #%d === %s ===\n", cinema_room_no, movie_title);
