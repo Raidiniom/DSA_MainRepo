@@ -134,56 +134,14 @@ NodePtr allowed_entrance(Queue *queue, Ratings rating) {
 
 Queue allowed_entrance_v2(Queue *queue, Ratings rate) {
     Queue allowed;
+
     create_queue(&allowed);
 
-    if (!is_empty(*queue))
+    while (queue != NULL)
     {
-
-        NodePtr prev = NULL, curr = queue->front;
-
-
-        while (curr != NULL)
-        {
-            if (check_ticket(curr->movie_goers, rate))
-            {
-                NodePtr trav = curr;
-                
-                if (prev == NULL)
-                {
-                    queue->front = curr->next;
-                }
-                else
-                {
-                    prev->next = curr->next;
-                }
-                
-                curr = curr->next;
-
-                trav->next = NULL;
-
-                if (allowed.rear == NULL)
-                {
-                    allowed.front = allowed.rear = trav;
-                }
-                else
-                {
-                    allowed.rear->next = trav;
-                    allowed.rear = trav;
-                }
-                
-            }
-            else
-            {
-                prev = curr;
-                curr = curr->next;
-            }
-        }
-
-        if (queue->front == NULL)
-        {
-            queue->rear = NULL;
-        }
+        // 
     }
+    
     
     return allowed;
 }
