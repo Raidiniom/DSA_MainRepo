@@ -110,40 +110,16 @@ bool check_ticket(Person person, Ratings movie) {
     }
 }
 
-NodePtr allowed_entrance(Queue *queue, Ratings rating) {
-    NodePtr allowed = NULL, trav =  queue->front;
-
-    while (trav != NULL)
+void allowed_entrance(Queue *queue) {
+    if (!is_empty(*queue)
     {
-        if (check_ticket(trav->movie_goers, rating))
+        while (queue->front != queue->rear || queue.front != NULL )
         {
-            NodePtr new_node =(NodePtr) malloc(sizeof(Node));
-
-            new_node->movie_goers = trav->movie_goers;
-            new_node->next = allowed;
-            allowed = new_node;
+            /* code */
         }
         
-
-        trav = trav->next;
     }
     
-
-    return allowed;
-}
-
-Queue allowed_entrance_v2(Queue *queue, Ratings rate) {
-    Queue allowed;
-
-    create_queue(&allowed);
-
-    while (queue != NULL)
-    {
-        // 
-    }
-    
-    
-    return allowed;
 }
 
 void movie_line(Queue queue, int cinema_room_no, String movie_title) {

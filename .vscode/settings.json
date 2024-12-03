@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "array": "cpp",
+        "deque": "cpp",
+        "vector": "cpp",
+        "string_view": "cpp"
     }
 }

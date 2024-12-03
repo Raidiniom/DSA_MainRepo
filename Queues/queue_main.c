@@ -40,17 +40,6 @@ int main() {
      // Display the initial movie line
     printf("Initial movie queue:\n");
     movie_line(movie_queue, 6, "The Revengers");
-
-    // Process the queue for R-rated movie eligibility
-    Queue processed = allowed_entrance_v2(&movie_queue, R);
-
-    // Display the processed queue (allowed entrance for R-rated movie)
-    printf("\nAllowed entrance (R-rated movie):\n");
-    movie_line(processed, 6, "The Revengers (R-rated)");
-
-    // Display the remaining queue
-    printf("\nRemaining queue after processing:\n");
-    movie_line(movie_queue, 6, "The Revengers");
     
     return 0;
 }
