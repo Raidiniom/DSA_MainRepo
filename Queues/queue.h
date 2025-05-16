@@ -111,9 +111,9 @@ bool check_ticket(Person person, Ratings movie) {
 }
 
 void allowed_entrance(Queue *queue) {
-    if (!is_empty(*queue)
+    if (!is_empty(*queue))
     {
-        while (queue->front != queue->rear || queue.front != NULL )
+        while (queue->front != queue->rear || queue->front != NULL )
         {
             /* code */
         }
