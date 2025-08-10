@@ -62,3 +62,7 @@ learning
 *.txt
 qm
 
+/*.stackdump
+*.stackdump
+
+/.vscode
