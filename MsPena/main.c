@@ -1,25 +1,21 @@
 #include <stdio.h>
 
-#include "charlist.h"
+#include "linklist.h"
 
 void main() {
-    charList myList;
-    initList(&myList);
+    linkList myList = NULL;
 
-    myList.count = 10;
-    myList.elem[0] = 'u';
-    myList.elem[1] = 's';
-    myList.elem[2] = 'c';
-    myList.elem[3] = 't';
-    myList.elem[4] = 'c';
-    myList.elem[5] = 'a';
-    myList.elem[6] = 'b';
-    myList.elem[7] = 'e';
-    myList.elem[8] = 'f';
-    myList.elem[9] = 'u';
-    displayCharList(myList);
+    insert(&myList, 'u');
+    insert(&myList, 's');
+    insert(&myList, 'c');
+    insert(&myList, 'a');
+    insert(&myList, 'b');
+    insert(&myList, 'z');
+    insert(&myList, 'x');
 
-    delete(&myList, 'c');
+    display(myList);
 
-    displayCharList(myList);
+    delete(&myList, 'b');
+
+    display(myList);
 }

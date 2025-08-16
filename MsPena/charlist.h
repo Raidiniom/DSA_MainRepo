@@ -16,6 +16,19 @@ void initList(charList* L) {
 }
 
 void delete(charList* L, char x) {
+    int pos;
+
+    for (; pos < L->count && L->elem[pos] != x; pos++){}
+    
+    for (int i = pos+1; i < L->count; i++)
+    {
+        L->elem[i-1] = L->elem[i];
+    }
+    
+    L->count--;
+}
+
+void deleteAll(charList* L, char x) {
     int a; // position holder
 
     // find position
@@ -23,25 +36,21 @@ void delete(charList* L, char x) {
     {
         if (L->elem[i] == x) // If found get the position then stop the loop
         {
+            printf("%c has been found will be delete!\n", L->elem[i]);
             for (int v = i; v != L->count - 1; v++)
             {
                 L->elem[v] = L->elem[v + 1];
             }
 
             L->count--;
-            break;
         }
         
     }
-
-    // Shifting values of the array
-    
-    
     
 }
 
 void displayCharList(charList L) {
-    for (int i = 0; i < L.count; i++)
+    for (int i = 0; i != L.count; i++)
     {
         printf("%c ", L.elem[i]);
     }
