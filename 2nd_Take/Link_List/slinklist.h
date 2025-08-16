@@ -61,7 +61,29 @@ reverse_list
 */
 
 // Start Here!
+bool is_empty(NodePtr list) {
+    return list == NULL;
+}
 
+void insert_front(NodePtr* list, Item item) {
+    NodePtr new_node = malloc(sizeof(Node));
+
+    new_node->item = item;
+    new_node->next = *list;
+    *list = new_node;
+}
+
+void insert_at(NodePtr* list, Item item, int pos) {
+    if (!is_empty(list))
+    {
+        NodePtr new_node = malloc(sizeof(Node));
+
+        new_node->item = item;
+        
+        
+    }
+    
+}
 // End Code Block!
 
 void display_list(NodePtr list) {

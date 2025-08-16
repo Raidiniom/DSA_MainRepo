@@ -63,6 +63,10 @@ void remove_person(List* list, String name) {
     
 }
 
+void sort_by_age(List* list) {
+    // 
+}
+
 void display_list(List list) {
     printf("\nPerson List:\n");
     for (int i = 0; i < list.count; i++)
