@@ -15,8 +15,21 @@ void initList(charList* L) {
     L->count = 0;
 }
 
+void insert(charList* L, char elem) {
+    if (L->count < SIZE)
+    {
+        L->elem[L->count] = elem;
+        L->count++;
+    }
+    else
+    {
+        printf("charList is full. Current count: %d\n", L->count);
+    }
+
+}
+
 void delete(charList* L, char x) {
-    int pos;
+    int pos = 0;
 
     for (; pos < L->count && L->elem[pos] != x; pos++){}
     
@@ -54,7 +67,7 @@ void displayCharList(charList L) {
     {
         printf("%c ", L.elem[i]);
     }
-    printf("\n");
+    printf("\nCount: %d\n", L.count);
 }
 
 #endif
