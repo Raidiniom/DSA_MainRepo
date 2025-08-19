@@ -6,16 +6,15 @@
 void main() {
     linkList myList = NULL;
 
-    insert(&myList, 'g');
-    insert(&myList, 'f');
-    insert(&myList, 'e');
-    insert(&myList, 'd');
-    insert(&myList, 'a');
+    insertFront(&myList, 'g');
+    insertFront(&myList, 'f');
+    insertFront(&myList, 'e');
+    insertFront(&myList, 'd');
+    insertFront(&myList, 'a');
 
     display(myList);
 
-    printf("\n");
-    insertSorted(&myList, 'b');
+    insertAt(&myList, 'x', 4);
 
     printf("\n");
     display(myList);

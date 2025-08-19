@@ -32,34 +32,6 @@ NodePtr* create_list() {
     return NULL;
 }
 
-/*
-Create the following:
-
-is_empty
-
-- Insert
-insert_front
-insert_at
-insert_rear
-
-- Delete
-delete_front
-delete_at
-delete_item
-delete_rear
-
-- Search
-search_alloccurance
-search_firstoccurance
-
-- Sort
-sort_list
-
-- Reverse
-reverse_list
-
-*/
-
 // Start Here!
 bool is_empty(NodePtr list) {
     return list == NULL;
@@ -78,22 +50,131 @@ void insert_at(NodePtr* list, Item item, int pos) {
     {
         NodePtr new_node = malloc(sizeof(Node));
 
+        if (new_node != NULL)
+        {
+            new_node->item = item;
+
+            NodePtr trav = *list;
+
+            for (int i = 1; i < pos - 1 && trav != NULL; i++)
+            {
+                trav = trav->next;
+            }
+
+            new_node->next = trav->next;
+            trav->next = new_node;
+            
+        }
+    }  
+}
+
+void insert_rear(NodePtr* list, Item item) {
+    NodePtr new_node = malloc(sizeof(Node));
+
+    if (new_node != NULL)
+    {
         new_node->item = item;
+        new_node->next = NULL;
+
+        if (is_empty(list))
+        {
+            new_node->next = *list;
+            *list = new_node;
+        }
+        else
+        {
+            NodePtr trav = *list, prev =  NULL;
+
+            for (; trav->next != NULL; trav = trav->next){}
+            
+            trav->next = new_node;
+        }
+    }
         
+}
+
+void delete_front(NodePtr* list) {
+    if (!is_empty(list))
+    {
+        NodePtr delete = *list;
+        *list = (*list)->next;
+
+        free(delete);
+    }
+    
+}
+
+void delete_at(NodePtr* list, int pos) {
+    if (!is_empty(list))
+    {
+        if (pos == 1)
+        {
+            delete_front(list);
+        }
+        else
+        {
+            NodePtr trav = *list, delete = NULL;
+
+            for (int i = 1; i < pos - 1 && trav != NULL; i++){trav = trav->next;}
+
+            delete = trav->next;
+            trav->next = delete->next;
+
+            free(delete);
+        }
         
     }
+    
+}
+
+void delete_item(NodePtr* list, String item_name) {
+    NodePtr trav = *list, prev = NULL;
+
+    while (trav != NULL && strcmp(trav->item.name, item_name) != 0)
+    {
+        prev = trav;
+        trav = trav->next;
+    }
+
+    printf("trav: %s\n", trav ? trav->item.name : "NULL");
+    printf("prev: %s\n", prev ? prev->item.name : "NULL");
+
+    if (prev == NULL)
+    {
+        *list = trav->next;
+    }
+    else
+    {
+        prev->next = trav->next;
+    }
+    
+    free(trav);
+}
+
+void delete_rear(NodePtr* list) {
+    NodePtr trav = *list;
+
+    for (; trav != NULL; trav = trav->next){}
+
+    printf("%s\n", trav ? trav->item.name : "NULL");
     
 }
 // End Code Block!
 
 void display_list(NodePtr list) {
-    NodePtr trav = list;
-
-    while (trav != NULL)
+    if (!is_empty(list))
     {
-        printf("Item Name: %s - %.2f\n", trav->item.name, trav->item.price);
+        NodePtr trav = list;
 
-        trav = trav->next;
+        printf("Items available:\n");
+        for (; trav != NULL; trav = trav->next)
+        {
+            printf("| %s - %.2f\n", trav->item.name, trav->item.price);
+        }
+    }
+    else
+    {
+        printf("Please list the items from the inventory. \n");
     }
     
 }
