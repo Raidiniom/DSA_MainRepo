@@ -10,6 +10,12 @@ typedef struct node {
     struct node* link;
 } *linkList;
 
+/*
+for debugging purpose, use this line of code
+
+printf("%c", pointer ? pointer->data : '-');
+*/
+
 void insert(linkList* head, char elem) {
     linkList new_node = malloc(sizeof(struct node));
 
@@ -20,6 +26,77 @@ void insert(linkList* head, char elem) {
         *head = new_node;
     }
     
+}
+
+void insertLast(linkList* head, char elem) {
+    linkList new_node = malloc(sizeof(struct node));
+
+    if (new_node != NULL)
+    {
+        new_node->elem = elem;
+        new_node->link = NULL;
+
+        linkList trav = *head;
+
+        for (; trav->link != NULL; trav = trav->link){}
+
+        trav->link = new_node;
+        
+    }
+    
+}
+
+void insertLastUnique(linkList* head, char elem) {
+    linkList locate = *head;
+
+    for (; locate != NULL && locate->elem != elem; locate = locate->link){}
+
+    if (locate == NULL)
+    {
+        linkList new_node = malloc(sizeof(struct node));
+
+        new_node->elem = elem;
+        new_node->link = NULL;
+
+        linkList trav = *head;
+
+        for (; trav->link != NULL; trav = trav->link){}
+
+        trav->link = new_node;
+    }
+    
+    
+}
+
+void insertAt(linkList* head, char elem, int position) {
+    linkList new_node = malloc(sizeof(struct node));
+
+    new_node->elem = elem;
+
+    linkList trav = *head;
+
+    for (int i = 1; trav != NULL && i < position - 1; i++){
+        trav = trav->link;
+    }
+
+    new_node->link = trav->link;
+    trav->link = new_node;
+}
+
+void insertSorted(linkList* head, char elem) {
+    linkList new_node = malloc(sizeof(struct node));
+
+    new_node->elem = elem;
+
+    linkList trav = *head, prev = NULL;
+    
+    for (; trav != NULL && elem > trav->elem; trav = trav->link)
+    {
+        prev = trav;
+    }
+    
+    prev->link = new_node;
+    new_node->link = trav;
 }
 
 void delete(linkList* head, char elem) {
@@ -53,16 +130,47 @@ void deleteV2(linkList* head, char elem) {
     
 }
 
+void deleteAll(linkList* head, char elem) {
+    linkList locate = *head, prev = NULL;
+
+    while (locate != NULL)
+    {
+        if (locate->elem == elem)
+        {
+            linkList delete = locate;
+
+            if (prev == NULL)
+            {
+                *head = locate->link;
+            }
+            else
+            {
+                prev->link = locate->link;
+            }
+            
+            locate = locate->link;
+            free(delete);
+            
+        }
+        else
+        {
+            prev = locate;
+            locate = locate->link;
+        }
+        
+        
+    }
+    
+    
+}
+
 void display(linkList head) {
     linkList trav = head;
 
-    while (trav != NULL)
+    for (; trav != NULL; trav = trav->link)
     {
-        printf("%c ", trav->elem);
-
-        trav = trav->link;
+        printf("%c ", trav->elem);    
     }
-    
     printf("\n");
 }
 
