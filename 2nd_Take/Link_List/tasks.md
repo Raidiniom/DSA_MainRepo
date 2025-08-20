@@ -19,16 +19,15 @@ insert_rear -> done <br>
 <code>
 delete_front -> done <br>
 delete_at -> done <br>
-delete_item <br>
+delete_item -> done <br>
 delete_all <br>
-delete_rear <br>
+delete_rear -> done <br>
 </code>
 
 ## Search
 
 <code>
-search_alloccurance <br>
-search_firstoccurance <br>
+search <br>
 </code>
 
 ## Sort
@@ -46,5 +45,9 @@ reverse_list <br>
 <br>
 <p>
 for debugging purpose, use this line of code <br>
-<code>printf("label here: %d\n", pointer ? pointer->data : '-');</code>
+<code>printf("[DEBUG] label here: %d\n", pointer ? pointer->data : '-');</code>
+
+<code> Example: <br>
+printf("[DEBUG] trav: %s\n", trav ? trav->item.name : "NULL"); <br>
+printf("[DEBUG] prev: %s\n", prev ? prev->item.name : "NULL");</code>
 </p>

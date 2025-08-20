@@ -136,9 +136,6 @@ void delete_item(NodePtr* list, String item_name) {
         trav = trav->next;
     }
 
-    printf("trav: %s\n", trav ? trav->item.name : "NULL");
-    printf("prev: %s\n", prev ? prev->item.name : "NULL");
-
     if (prev == NULL)
     {
         *list = trav->next;
@@ -149,6 +146,41 @@ void delete_item(NodePtr* list, String item_name) {
     }
     
     free(trav);
+}
+
+void delete_all(NodePtr* list, String item_name) {
+    if (!is_empty(list))
+    {
+        NodePtr trav = *list, prev = NULL;
+
+        while (trav != NULL)
+        {
+            if (strcmp(trav->item.name, item_name) == 0)
+            {
+                NodePtr delete = trav;
+
+                if (prev == NULL)
+                {
+                    *list = trav->next;
+                }
+                else
+                {
+                    prev->next = trav->next;
+                }
+                
+                trav = trav->next;
+                free(delete);
+            }
+            else
+            {
+                prev = trav;
+                trav = trav->next;
+            }
+            
+        }
+        
+    }
+    
 }
 
 void delete_rear(NodePtr* list) {
