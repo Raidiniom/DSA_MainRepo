@@ -63,4 +63,13 @@ Student create_student(Name name, char *ID, char *course) {
     return init_student;
 }
 
+void print_name(Name name) {
+    printf("%s %c, %s%5s", name.FName, name.MI, name.LName, " ");
+}
+
+void print_student(Student student) {
+    print_name(student.name);
+    printf("- ID: %s Course: %s\n", student.ID, student.course);
+}
+
 #endif
