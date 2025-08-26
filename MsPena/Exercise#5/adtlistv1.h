@@ -1,20 +1,23 @@
-#ifndef ADTLIST_H
-#define ADTLIST_H
+#ifndef ADTLISTV1_H
+#define ADTLISTV1_H
 
 /**
- * This header file is about ADT list - Array Implementation
+ * @file adtlistv1.h
+ * @brief Abstract Data Type (ADT) List - Array Implementation
+ *
+ * This header file defines the interface for an Array-based List ADT.
  * 
- * Functions to implement
- * insert 
- * delete
- * locate
- * retrieve
- * makeNull
- * printList
+ * Functions to be implemented:
+ *  - insert     : Insert an element into the list
+ *  - delete     : Remove an element from the list
+ *  - locate     : Find the position of an element
+ *  - retrieve   : Get the element at a given position
+ *  - makeNull   : Reset the list to an empty state
+ *  - printList  : Display the elements of the list
  * 
- * Programmer: Voltaire Ratilla
- * create at: 26/8/2025
- * done at: ~/~/~
+ * @author  Voltaire Ratilla
+ * @date    Created: 26/08/2025
+ * @date    Completed: --/--/----
  */
 
 #include <stdio.h>
