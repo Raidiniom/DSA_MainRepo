@@ -10,11 +10,15 @@ void main() {
     insertFront(&myList, 'f');
     insertFront(&myList, 'e');
     insertFront(&myList, 'd');
-    insertFront(&myList, 'a');
+    insertFront(&myList, 'b');
 
     display(myList);
 
-    insertAt(&myList, 'x', 4);
+    insertSorted(&myList, 'x');
+    insertSorted(&myList, 'c');
+    // insertSorted(&myList, 'a');
+
+    // debug_sort(&myList, 'c');
 
     printf("\n");
     display(myList);

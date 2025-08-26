@@ -98,17 +98,40 @@ void insertSorted(linkList* head, char elem) {
     {
         new_node->elem = elem;
 
-        linkList trav = *head, prev = NULL;
-        
-        for (; trav != NULL && elem > trav->elem; trav = trav->link)
+
+        if ((*head)->elem > elem)
         {
-            prev = trav;
+            new_node->link = *head;
+            *head = new_node;
         }
+        else
+        {
+            linkList trav = *head;
         
-        prev->link = new_node;
-        new_node->link = trav;
+            for (; trav != NULL && trav->elem > elem; trav = trav->link){}
+    
+            new_node->link = trav->link;
+            trav->link = new_node;
+        }
+
     }
     
+}
+
+void debug_sort(linkList *head, char elem) {
+    linkList trav = *head;
+
+    linkList new_node = malloc(sizeof(struct node));
+
+    new_node->elem = elem;
+
+    for (; trav != NULL && trav->elem > elem; trav = trav->link){}
+    
+    new_node->link = trav->link;
+    trav->link = new_node;
+
+    printf("%c -> ", trav ? trav->elem : '|');
+    printf("%c", trav->link ? trav->link->elem : '|');
 }
 
 void delete(linkList* head, char elem) {
