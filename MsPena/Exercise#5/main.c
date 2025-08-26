@@ -15,5 +15,16 @@ void main() {
 
     printList(myList);
 
-    printf("location at index %d", locate(myList, "74829103"));
+    printf("location at index %d\n", locate(myList, "74829103"));
+    print_student(retrieve(myList, "07402931"));
+
+    printf("\n\n");
+    delete(&myList, "07402931");
+    printList(myList);
+    printf("\n\n");
+    delete(&myList, "98123477");
+    printList(myList);
+    printf("\n\n");
+    delete(&myList, "82736491");
+    printList(myList);
 }

@@ -69,7 +69,11 @@ void makeNull(LIST* list) {
 }
 
 void insert(LIST* list, Student student) {
-    list->student[list->count++] = student;
+    if (list->count < MAX_SIZE)
+    {
+        list->student[list->count++] = student;
+    }
+    
 }
 
 int locate(LIST list, char* ID) {
@@ -82,6 +86,31 @@ int locate(LIST list, char* ID) {
         
     }
     return -1;
+}
+
+Student retrieve(LIST list, char* ID) {
+    for (int i = 0; i < list.count; i++)
+    {
+        if (strcmp(list.student[i].ID, ID) == 0)
+        {
+            return list.student[i];
+        }
+        
+    }
+}
+
+void delete(LIST* list, char* ID) {
+    if (list->count < MAX_SIZE)
+    {
+        int pos = locate(*list, ID);
+
+        for (int i = pos + 1; i < list->count; i++)
+        {
+            list->student[i - 1] = list->student[i];
+        }
+        list->count--;
+    }
+    
 }
 
 void print_name(Name name) {
