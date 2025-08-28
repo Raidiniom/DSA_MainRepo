@@ -18,8 +18,7 @@ void initList(charList* L) {
 void insert(charList* L, char elem) {
     if (L->count < SIZE)
     {
-        L->elem[L->count] = elem;
-        L->count++;
+        L->elem[L->count++] = elem;
     }
     else
     {
