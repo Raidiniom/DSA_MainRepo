@@ -50,19 +50,30 @@ void insert_at(NodePtr* list, Item item, int pos) {
     {
         NodePtr new_node = malloc(sizeof(Node));
 
+        int count_elements = 0;
+        
         if (new_node != NULL)
         {
             new_node->item = item;
 
             NodePtr trav = *list;
 
-            for (int i = 1; i < pos - 1 && trav != NULL; i++)
+            for (int i = 1; i < pos - 1 && trav != NULL; i++, trav = trav->next)
             {
-                trav = trav->next;
+                count_elements++;
             }
 
-            new_node->next = trav->next;
-            trav->next = new_node;
+            if (count_elements > pos)
+            {
+                new_node->next = trav->next;
+                trav->next = new_node;
+            }
+            else
+            {
+                printf("Invalid Postion\n");
+            }
+            
+            printf("[DEBUG] count_element: %d\n", count_elements);
             
         }
     }  

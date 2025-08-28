@@ -63,13 +63,55 @@ Student create_student(Name name, char *ID, char *course) {
     return init_student;
 }
 
+void initialize(LIST* list) {
+    list->count = 0;
+}
+
+void makeNULL(LIST* list) {
+    list->count = 0;
+}
+
+void insertLast(LIST* list, Student student) {
+    list->student[list->count++] = student;
+}
+
+int locate(LIST list, char* ID) {
+    int i = 0;
+
+    for (; i < list.count && strcmp(list.student[i].ID, ID) != 0; i++){}
+    
+    return i + 1;
+}
+
+void delete(LIST* list, char* ID) {
+    int pos = locate(*list, ID);
+
+    for (int i = pos + 1; i < list->count; i++)
+    {
+        list->student[i - 1] = list->student[i];
+    }
+    
+    list->count--;
+}
+
 void print_name(Name name) {
-    printf("%s %c, %s%5s", name.FName, name.MI, name.LName, " ");
+    printf("| %-12s%c, %-12s", name.FName, name.MI, name.LName);
 }
 
 void print_student(Student student) {
     print_name(student.name);
-    printf("- ID: %s Course: %s\n", student.ID, student.course);
+    printf("| %-12s| %-12s\n", student.ID, student.course);
+}
+
+void printList(LIST list) {
+    printf("--------------------------------------------------\n");
+    printf("| %-27s| %-12s| %-14s\n", "Name", "ID", "Course");
+    printf("--------------------------------------------------\n");
+    for (int i = 0; i < list.count; i++)
+    {
+        print_student(list.student[i]);
+    }
+    printf("--------------------------------------------------\n");
 }
 
 #endif

@@ -10,15 +10,16 @@ void main() {
     insert_front(&mylist, create_item("Ballpen", 1299.00));
     insert_front(&mylist, create_item("Keyboard", 259.00));
     insert_front(&mylist, create_item("Monitor", 59199.00));
-    insert_at(&mylist, create_item("Pad Paper", 45.00), 4);
+    // insert_at(&mylist, create_item("Pad Paper", 45.00), 4);
     insert_rear(&mylist, create_item("Correction Tape", 25.59));
     insert_front(&mylist, create_item("Keyboard", 259.00));
-    insert_at(&mylist, create_item("Keyboard", 259.00), 5);
-    insert_at(&mylist, create_item("Keyboard", 259.00), 10);
-
+    // insert_at(&mylist, create_item("Keyboard", 259.00), 5);
+    // insert_at(&mylist, create_item("Keyboard", 259.00), 10);
+    
     display_list(mylist);
-
-    printf("\nStart deleting\n");
+    
+    insert_at(&mylist, create_item("Charles", 500.00), 11);
+    // printf("\nStart deleting\n");
     // printf("Delete Front\n");
     // delete_front(&mylist);
     // printf("Delete At\n");
@@ -27,7 +28,7 @@ void main() {
     // delete_item(&mylist, "Monitor");
     // printf("Delete Rear\n");
     // delete_rear(&mylist);
-    printf("Delete All\n");
-    delete_all(&mylist, "Keyboard");
-    display_list(mylist);
+    // printf("Delete All\n");
+    // delete_all(&mylist, "Keyboard");
+    // display_list(mylist);
 }

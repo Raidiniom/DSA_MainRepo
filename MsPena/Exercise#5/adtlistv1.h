@@ -71,7 +71,7 @@ void makeNull(LIST* list) {
     list->count = 0;
 }
 
-void insert(LIST* list, Student student) {
+void insertLast(LIST* list, Student student) {
     if (list->count < MAX_SIZE)
     {
         list->student[list->count++] = student;
@@ -117,20 +117,20 @@ void delete(LIST* list, char* ID) {
 }
 
 void print_name(Name name) {
-    printf("%s %c, %s%5s", name.FName, name.MI, name.LName, " ");
+    printf("| %-12s%c, %-12s", name.FName, name.MI, name.LName);
 }
 
 void print_student(Student student) {
     print_name(student.name);
-    printf("- ID: %s Course: %s\n", student.ID, student.course);
+    printf("| %-12s| %-12s\n", student.ID, student.course);
 }
 
 void printList(LIST list) {
+    printf("| %-27s| %-12s| %-14s\n", "Name", "ID", "Course");
     for (int i = 0; i < list.count; i++)
     {
         print_student(list.student[i]);
     }
-    
 }
 
 #endif
