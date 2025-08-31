@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#define MAX_SIZE 10
+#define MAX_SIZE 20
 
 typedef struct {
     char data;
@@ -33,16 +33,16 @@ int allocSpace(VirtualHeap* VH) {
     {
         VH->available = VH->nodes[address].link;
 
-        return address;
     }
     
+    return address;
 }
 
-void deallocSpace(VirtualHeap* VH, int index) {
-    if (index != -1)
+void deallocSpace(VirtualHeap* VH, LIST* index) {
+    if (*index != -1)
     {
-        VH->nodes[index].link = VH->available;
-        VH->available = index;
+        VH->nodes[*index].link = VH->available;
+        VH->available = *index;
     }
     
 }
@@ -69,11 +69,91 @@ void insertLast(LIST* L, VirtualHeap* VH, char elem) {
 
         for (; VH->nodes[trav].link != -1; trav = VH->nodes[trav].link){}
 
-        printf("\n[DEBUG] trav %d\n", trav);
         VH->nodes[new_node].link = -1;
         VH->nodes[trav].link = new_node;
     }
     
+}
+
+void insertAt(LIST* L, VirtualHeap* VH, char elem, int position) {
+    int new_node = allocSpace(VH);
+
+    if (new_node != -1)
+    {
+        VH->nodes[new_node].data = elem;
+        int trav = *L, trupos = position - 1;
+
+        for (int i = 1; VH->nodes[trav].link != -1 && i < trupos; i++, trav = VH->nodes[trav].link){}
+
+        VH->nodes[new_node].link = VH->nodes[trav].link;
+        VH->nodes[trav].link = new_node;
+        
+    }
+    
+}
+
+void insertSorted(LIST* L, VirtualHeap* VH, char elem) {
+    int new_node = allocSpace(VH);
+    
+    if (new_node != -1)
+    {
+        VH->nodes[new_node].data = elem;
+        
+        if (elem < VH->nodes[*L].data)
+        {
+            VH->nodes[new_node].link = *L;
+            *L = new_node;
+        }
+        else
+        {
+            int trav = *L;
+        
+            for (; VH->nodes[trav].link != -1 && elem > VH->nodes[VH->nodes[trav].link].data; trav = VH->nodes[trav].link){}
+
+            VH->nodes[new_node].link = VH->nodes[trav].link;
+            VH->nodes[trav].link = new_node;
+        }
+        
+        
+    }
+    
+}
+
+void deleteFront(LIST* L, VirtualHeap* VH) {
+    LIST head = *L;
+    *L = VH->nodes[head].link;
+    deallocSpace(VH, &head);
+}
+
+void deleteLast(LIST* L, VirtualHeap* VH) {
+    LIST trav = *L;
+
+    for (; VH->nodes[VH->nodes[trav].link].link != -1; trav = VH->nodes[trav].link){}
+
+    deallocSpace(VH, &VH->nodes[trav].link);
+
+    VH->nodes[trav].link = -1;
+    
+}
+
+void deleteAt(LIST* L, VirtualHeap* VH, int position) {
+    int trupos = position - 1;
+
+    LIST trav = *L;
+
+    for (int i = 1; VH->nodes[trav].link != -1 && i < trupos; i++, trav = VH->nodes[trav].link){}
+    int hold = VH->nodes[VH->nodes[trav].link].link;
+    deallocSpace(VH, &VH->nodes[trav].link);
+    VH->nodes[trav].link = hold;
+}
+
+void deleteElem(LIST* L, VirtualHeap* VH, char elem) {
+    LIST trav = *L;
+
+    for (; VH->nodes[trav].link != -1 && VH->nodes[VH->nodes[trav].link].data != elem; trav = VH->nodes[trav].link){}
+    int delete = VH->nodes[trav].link;
+    VH->nodes[trav].link = VH->nodes[delete].link;
+    deallocSpace(VH, &delete);
 }
 
 void displayLIST(LIST L, VirtualHeap VH) {
