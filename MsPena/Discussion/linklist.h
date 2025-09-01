@@ -81,9 +81,7 @@ void insertAt(linkList* head, char elem, int position) {
 
         linkList trav = *head;
 
-        for (int i = 1; trav != NULL && i < position - 1; i++){
-            trav = trav->link;
-        }
+        for (int i = 1; trav != NULL && i < position - 1; i++, trav = trav->link){}
 
         new_node->link = trav->link;
         trav->link = new_node;

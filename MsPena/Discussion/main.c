@@ -12,10 +12,11 @@ void main() {
     insertFront(&myList, 'd');
     insertFront(&myList, 'b');
 
-    display(myList);
-
+    
     insertSorted(&myList, 'x');
     insertSorted(&myList, 'c');
+    insertLast(&myList, 'n');
+    display(myList);
     // insertSorted(&myList, 'a');
 
     // debug_sort(&myList, 'c');

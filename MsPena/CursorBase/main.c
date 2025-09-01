@@ -13,6 +13,7 @@ void main() {
     insertFront(&l, &vh, 'c');
     insertFront(&l, &vh, 'b');
 
+    printf("\nInitial List\n");
     displayLIST(l, vh);
 
     insertLast(&l, &vh, 'x');
@@ -22,8 +23,11 @@ void main() {
     
     insertSorted(&l, &vh, 'h');
     insertSorted(&l, &vh, 'a');
+
+    printf("\nModified List\n");
     displayLIST(l, vh);
 
     deleteElem(&l, &vh, 'x');
+    printf("\nDeleted 'x'\n");
     displayLIST(l, vh);
 }

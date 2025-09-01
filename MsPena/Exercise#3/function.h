@@ -61,6 +61,7 @@ typedef struct node {
     struct node* next;
 } *LinkList;
 
+// Helper Fuctions
 nameType createNameType(char* FN, char MI, char* LN) {
     nameType initialize;
 
@@ -82,12 +83,22 @@ studentType createStudentType(nameType fullname, char* ID, char* course, int yea
     return initialize;
 }
 
+void displayName(nameType fullname) {
+    printf("%-10s %c, %-10s", fullname.FN, fullname.MI, fullname.LN);
+}
+
+void displayStudent(studentType student) {
+    displayName(student.name);
+    printf("%-8s %-5s%d", student.ID, student.course, student.yearLevel);
+}
+// ================================================================
+
 // ArrayList
 void initArrayList(ArrayList* arrylst) {
     arrylst->count = 0;
 }
 
-void insertFront(ArrayList* arrylst, studentType student) {
+void insertFrontA(ArrayList* arrylst, studentType student) {
     for (int i = arrylst->count; i > 0 ; i--)
     {
         arrylst->stud[i] = arrylst->stud[i - 1];
@@ -96,11 +107,11 @@ void insertFront(ArrayList* arrylst, studentType student) {
     arrylst->stud[0] = student;
 }
 
-void insertLast(ArrayList* arrylst, studentType student) {
+void insertLastA(ArrayList* arrylst, studentType student) {
     arrylst->stud[arrylst->count++] = student;
 }
 
-void insertLastUnique(ArrayList* arrylst, studentType student) {
+void insertLastUniqueA(ArrayList* arrylst, studentType student) {
     int i = arrylst->count;
 
     for (; i > 0 && strcmp(arrylst->stud[i].ID, student.ID) != 0; i--){}
@@ -113,7 +124,7 @@ void insertLastUnique(ArrayList* arrylst, studentType student) {
     
 }
 
-void insertAtPosition(ArrayList* arrylst, studentType student, int position) {
+void insertAtPositionA(ArrayList* arrylst, studentType student, int position) {
     for (int i = arrylst->count; i > position ; i--)
     {
         arrylst->stud[i] = arrylst->stud[i - 1];
@@ -122,7 +133,7 @@ void insertAtPosition(ArrayList* arrylst, studentType student, int position) {
     arrylst->stud[position - 1] = student;
 }
 
-studentType deleteElem(ArrayList* arrylst, char* ID) {
+studentType deleteElemA(ArrayList* arrylst, char* ID) {
     studentType delete = createStudentType(createNameType("XXXXXX", 'X', "XXXXXX"), "XXXXXX", "XXXXXX", 0);
 
     int i = arrylst->count - 1;
@@ -143,7 +154,7 @@ studentType deleteElem(ArrayList* arrylst, char* ID) {
     return delete;
 }
 
-ArrayList separateCourse(ArrayList* arrylst, char* course) {
+ArrayList separateCourseA(ArrayList* arrylst, char* course) {
     ArrayList separate;
     initArrayList(&separate);
 
@@ -151,7 +162,7 @@ ArrayList separateCourse(ArrayList* arrylst, char* course) {
     {
         if (strcmp(arrylst->stud[i].course, course) == 0)
         {
-            insertLast(&separate, deleteElem(arrylst, arrylst->stud[i].ID));
+            insertLastA(&separate, deleteElemA(arrylst, arrylst->stud[i].ID));
         }
         
     }
@@ -162,17 +173,68 @@ ArrayList separateCourse(ArrayList* arrylst, char* course) {
 // ============================================================
 
 // LinkList
+void initLinkList(LinkList* linklst) {
+    *linklst = NULL;
+}
 
+void insertFrontL(LinkList* linklst, studentType student) {
+    LinkList new_node = malloc(sizeof(struct node));
+
+    if (new_node != NULL)
+    {
+        new_node->stud = student;
+        new_node->next = *linklst;
+        *linklst = new_node;
+    }
+    
+}
+
+void insertLastL(LinkList* linklst, studentType student) {
+    LinkList new_node = malloc(sizeof(struct node));
+
+    if (new_node != NULL)
+    {
+        new_node->stud = student;
+        new_node->next = NULL;
+
+        LinkList trav = *linklst;
+
+        for (; trav->next != NULL; trav = trav->next){}
+
+        trav->next = new_node;
+    }
+    
+}
+
+void insertLastUniqueL(LinkList* linklst, studentType student) {
+    LinkList trav = *linklst;
+
+    for (; trav != NULL && strcmp(trav->stud.ID, student.ID) == 0; trav = trav->next){}
+
+    printf("[DEBUG] trav ");
+    displayStudent(trav->stud);
+    printf("\n\n");
+    
+    // if (trav == NULL)
+    // {
+    //     LinkList new_node = malloc(sizeof(struct node));
+
+    //     if (new_node != NULL)
+    //     {
+    //         new_node->stud = student;
+    //         new_node->next = NULL;
+    //         trav->next = new_node;
+    //     }
+        
+    // }
+    // else
+    // {
+    //     printf("Not Unique!\n");
+    // }
+    
+    
+}
 // ============================================================
-
-void displayName(nameType fullname) {
-    printf("%-10s %c, %-10s", fullname.FN, fullname.MI, fullname.LN);
-}
-
-void displayStudent(studentType student) {
-    displayName(student.name);
-    printf("%-8s %-5s%d", student.ID, student.course, student.yearLevel);
-}
 
 void displayArrayList(ArrayList arrylst) {
     for (int i = 0; i < arrylst.count; i++)
@@ -183,4 +245,15 @@ void displayArrayList(ArrayList arrylst) {
     
 }
 
-#endif
+void displayLinkList(LinkList linklst) {
+    LinkList trav = linklst;
+
+    for (; trav != NULL; trav = trav->next)
+    {
+        displayStudent(trav->stud);
+        printf("\n");
+    }
+    
+}
+
+#endif 

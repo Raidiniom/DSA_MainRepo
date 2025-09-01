@@ -81,9 +81,9 @@ void insertAt(LIST* L, VirtualHeap* VH, char elem, int position) {
     if (new_node != -1)
     {
         VH->nodes[new_node].data = elem;
-        int trav = *L, trupos = position - 1;
+        int trav = *L, index = position - 1;
 
-        for (int i = 1; VH->nodes[trav].link != -1 && i < trupos; i++, trav = VH->nodes[trav].link){}
+        for (int i = 1; VH->nodes[trav].link != -1 && i < index; i++, trav = VH->nodes[trav].link){}
 
         VH->nodes[new_node].link = VH->nodes[trav].link;
         VH->nodes[trav].link = new_node;
@@ -137,11 +137,11 @@ void deleteLast(LIST* L, VirtualHeap* VH) {
 }
 
 void deleteAt(LIST* L, VirtualHeap* VH, int position) {
-    int trupos = position - 1;
+    int index = position - 1;
 
     LIST trav = *L;
 
-    for (int i = 1; VH->nodes[trav].link != -1 && i < trupos; i++, trav = VH->nodes[trav].link){}
+    for (int i = 1; VH->nodes[trav].link != -1 && i < index; i++, trav = VH->nodes[trav].link){}
     int hold = VH->nodes[VH->nodes[trav].link].link;
     deallocSpace(VH, &VH->nodes[trav].link);
     VH->nodes[trav].link = hold;
