@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+#include "ppnlinklist.h"
+
+void main() {
+    LinkList myList;
+
+    initLinkList(&myList);
+
+    insertFirst(&myList, createStudentType(createNameType("Ratilla", "Voltaire", 'L'), "07402931", "BSIT", 2));
+    insertFirst(&myList, createStudentType(createNameType("Gerozaga", "John", 'C'), "1", "BSIT", 2));
+    insertFirst(&myList, createStudentType(createNameType("Diangco", "Clarence", 'A'), "2", "BSIT", 2));
+
+    
+    insertLast(&myList, createStudentType(createNameType("Pazon", "Paul", 'S'), "3", "BSIS", 3));
+    
+    displayList(myList);
+}
