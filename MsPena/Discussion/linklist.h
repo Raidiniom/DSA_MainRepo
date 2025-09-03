@@ -74,6 +74,7 @@ void insertLastUnique(linkList* head, char elem) {
 
 void insertAt(linkList* head, char elem, int position) {
     linkList new_node = malloc(sizeof(struct node));
+    int index = position - 1;
 
     if (new_node != NULL)
     {
@@ -81,7 +82,7 @@ void insertAt(linkList* head, char elem, int position) {
 
         linkList trav = *head;
 
-        for (int i = 1; trav != NULL && i < position - 1; i++, trav = trav->link){}
+        for (int i = 1; trav != NULL && i < index; i++, trav = trav->link){}
 
         new_node->link = trav->link;
         trav->link = new_node;
@@ -89,47 +90,28 @@ void insertAt(linkList* head, char elem, int position) {
     
 }
 
-void insertSorted(linkList* head, char elem) {
+void insertSorted(linkList *head, char elem) {
     linkList new_node = malloc(sizeof(struct node));
-
+    
     if (new_node != NULL)
     {
         new_node->elem = elem;
 
-
-        if ((*head)->elem > elem)
+        if (elem < (*head)->elem)
         {
-            new_node->link = *head;
-            *head = new_node;
+            insertFront(head, elem);
         }
         else
         {
             linkList trav = *head;
-        
-            for (; trav != NULL && trav->elem > elem; trav = trav->link){}
-    
+            for (; trav->link != NULL && trav->link->elem < elem; trav = trav->link){}
+            
             new_node->link = trav->link;
             trav->link = new_node;
         }
-
+        
     }
     
-}
-
-void debug_sort(linkList *head, char elem) {
-    linkList trav = *head;
-
-    linkList new_node = malloc(sizeof(struct node));
-
-    new_node->elem = elem;
-
-    for (; trav != NULL && trav->elem > elem; trav = trav->link){}
-    
-    new_node->link = trav->link;
-    trav->link = new_node;
-
-    printf("%c -> ", trav ? trav->elem : '|');
-    printf("%c", trav->link ? trav->link->elem : '|');
 }
 
 void delete(linkList* head, char elem) {

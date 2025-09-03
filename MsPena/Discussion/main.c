@@ -9,19 +9,16 @@ void main() {
     insertFront(&myList, 'g');
     insertFront(&myList, 'f');
     insertFront(&myList, 'e');
-    insertFront(&myList, 'd');
+    insertFront(&myList, 'c');
     insertFront(&myList, 'b');
 
-    
-    insertSorted(&myList, 'x');
-    insertSorted(&myList, 'c');
     insertLast(&myList, 'n');
+    insertAt(&myList, 'Y', 4); // Disregard this!
     display(myList);
-    // insertSorted(&myList, 'a');
 
-    // debug_sort(&myList, 'c');
-
-    printf("\n");
+    insertSorted(&myList, 'a');
+    insertSorted(&myList, 'd');
+    insertSorted(&myList, 'x');
     display(myList);
 
     // Array 
