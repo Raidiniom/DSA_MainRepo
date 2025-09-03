@@ -83,8 +83,23 @@ void insertLast(LinkList* head, studentType student) {
         (*trav)->student = student;
         (*trav)->next = NULL;
     }
-    
-    
+
+}
+
+void insertAt(LinkList* head, studentType student, int position) {
+    LinkList *trav = head;
+
+    for (int i = 1; *trav != NULL && i < position; i++, trav = &(*trav)->next){}
+
+    LinkList newNode = malloc(sizeof(struct node));
+
+    if (newNode != NULL)
+    {
+        newNode->student = student;
+        newNode->next = *trav;
+        *trav = newNode;
+    }
+ 
 }
 
 void displayList(LinkList head) {

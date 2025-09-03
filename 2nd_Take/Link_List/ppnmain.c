@@ -11,8 +11,9 @@ void main() {
     insertFirst(&myList, createStudentType(createNameType("Gerozaga", "John", 'C'), "1", "BSIT", 2));
     insertFirst(&myList, createStudentType(createNameType("Diangco", "Clarence", 'A'), "2", "BSIT", 2));
 
-    
     insertLast(&myList, createStudentType(createNameType("Pazon", "Paul", 'S'), "3", "BSIS", 3));
     
+    insertAt(&myList, createStudentType(createNameType("Ceballos", "Yousif", 'R'), "3", "BSIT", 3), 3);
+
     displayList(myList);
 }
