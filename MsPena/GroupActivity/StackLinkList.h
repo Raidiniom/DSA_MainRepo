@@ -2,23 +2,34 @@
 #define STACKLINKLIST_H
 
 /**
- * @file    filename.h / filename.c
- * @brief   Short description of what this file does
+ * @file    stacklinklist.h
+ * @brief   Implementation of a stack data structure using linked lists.
  *
  * Detailed description:
- * - Explain the purpose of this file
- * - Mention if it’s part of a bigger project
- * - Include important details about usage/implementation
+ * This header file defines a stack implementation for storing and
+ * managing `studType` records (student name, ID, and course). The stack
+ * is dynamically allocated using a singly linked list, which allows for
+ * flexible memory usage without a fixed maximum size.
+ *
+ * It provides the standard stack operations such as push, pop, and top,
+ * along with helper functions to create and display student records.
+ * Unlike an array-based stack, this version does not have a "full" state
+ * unless system memory is exhausted.
  *
  * Functions to be implemented:
- *  - function1 : Short description
- *  - function2 : Short description
- *  - function3 : Short description
+ *  - initList     : Initializes the stack as empty.
+ *  - isEmpty      : Checks if the stack is empty.
+ *  - isFull       : Indicates that a linked list stack does not get full.
+ *  - push         : Adds a new student record onto the stack.
+ *  - pop          : Removes the top student record from the stack.
+ *  - popReturn    : Removes and returns the top student record.
+ *  - top          : Displays the current top element.
+ *  - displayStack : Prints all elements in the stack.
  *
- * @author   Your Name
- * @date     Created: DD/MM/YYYY
- * @date     Completed: DD/MM/YYYY
- */
+ * @author   Voltaire Ratilla
+ * @date     Created: 04/02/2025
+ * @date     Completed: 04/02/2025
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
