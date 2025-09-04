@@ -4,9 +4,9 @@
 
 void main() {
     VirtualHeap vh;
-    initVirtualHeap(&vh);
+    LIST l;
+    initVirtualHeap(&vh, &l);
 
-    LIST l = -1;
 
     insertFront(&l, &vh, 'e');
     insertFront(&l, &vh, 'd');

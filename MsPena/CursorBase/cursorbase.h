@@ -17,7 +17,8 @@ typedef struct {
 
 typedef int LIST;
 
-void initVirtualHeap(VirtualHeap* VH) {
+void initVirtualHeap(VirtualHeap* VH, LIST* L) {
+    *L = -1;
     VH->available = MAX_SIZE - 1;
     for (int i = -1; i < MAX_SIZE; i++)
     {

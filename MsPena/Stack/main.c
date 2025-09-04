@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+#include "stackarray.h"
+
+void main() {
+    Stack myStack;
+    initStack(&myStack);
+
+    push(&myStack, createPerson("Voltaire", "Ratilla", 'L'));
+    push(&myStack, createPerson("Charles", "Boqeucosa", 'C'));
+    push(&myStack, createPerson("Clarence", "Diangco", 'X'));
+
+    pop(&myStack);
+
+    displayStack(myStack);
+
+    top(myStack);
+
+    makeNull(&myStack);
+
+    displayStack(myStack);
+}

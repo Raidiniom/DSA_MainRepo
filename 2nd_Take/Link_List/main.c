@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "slinklist.h"
+#include "PN/slinklist.h"
 
 void main() {
     NodePtr mylist = create_list();

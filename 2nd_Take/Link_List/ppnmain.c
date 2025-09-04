@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "ppnlinklist.h"
+#include "PPN/ppnlinklist.h"
 
 void main() {
     LinkList myList;
