@@ -15,5 +15,14 @@ void main() {
     
     insertAt(&myList, createStudentType(createNameType("Ceballos", "Yousif", 'R'), "3", "BSIT", 3), 3);
 
+    printf("Inserted List\n");
+    displayList(myList);
+    
+    printf("\n\nDeleting List\n");
+
+    // deleteFirst(&myList);
+    // deleteLast(&myList);
+    deleteAt(&myList, 3);
+
     displayList(myList);
 }

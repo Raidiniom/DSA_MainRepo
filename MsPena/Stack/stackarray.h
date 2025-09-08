@@ -28,7 +28,7 @@
  * @author   Voltaire Ratilla
  * @date     Created: 04/09/2025
  * @date     Completed: 04/09/2025
- */
+*/
 
 
 #include <stdio.h>
@@ -119,7 +119,7 @@ void displayStack(Stack st) {
     }
     else
     {
-        printf("Stack is Empty!");
+        printf("Stack is Empty!\n");
     }
     
     

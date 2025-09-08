@@ -87,19 +87,64 @@ void insertLast(LinkList* head, studentType student) {
 }
 
 void insertAt(LinkList* head, studentType student, int position) {
-    LinkList *trav = head;
-
-    for (int i = 1; *trav != NULL && i < position; i++, trav = &(*trav)->next){}
-
-    LinkList newNode = malloc(sizeof(struct node));
-
-    if (newNode != NULL)
+    if (*head != NULL)
     {
-        newNode->student = student;
-        newNode->next = *trav;
-        *trav = newNode;
+        LinkList *trav = head;
+
+        for (int i = 1; *trav != NULL && i < position; i++, trav = &(*trav)->next){}
+
+        LinkList newNode = malloc(sizeof(struct node));
+
+        if (newNode != NULL)
+        {
+            newNode->student = student;
+            newNode->next = *trav;
+            *trav = newNode;
+        }
     }
+    
  
+}
+
+void deleteFirst(LinkList* head) {
+    if (*head != NULL)
+    {
+        LinkList delete = *head;
+        *head = (*head)->next;
+        free(delete);
+    }
+    
+}
+
+void deleteLast(LinkList* head) {
+    if (*head != NULL)
+    {
+        LinkList *trav = head;
+
+        for (; (*trav)->next != NULL; trav = &(*trav)->next){}
+
+        free(*trav);
+        *trav = NULL;
+        
+    }
+    
+}
+
+void deleteAt(LinkList* head, int position) {
+    if (*head != NULL)
+    {
+        LinkList *trav = head;
+        int index = position - 1;
+
+        for (int i = 1; *trav != NULL && i < index ; i++, trav = &(*trav)->next){}
+        
+        LinkList delete = (*trav)->next;
+
+        (*trav)->next = delete->next;
+
+        free(delete);
+    }
+    
 }
 
 void displayList(LinkList head) {
