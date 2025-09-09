@@ -20,4 +20,4 @@ void main() {
     makeNull(&myStack);
     
     displayStack(myStack);
-}
+}   
