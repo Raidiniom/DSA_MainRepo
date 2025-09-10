@@ -111,27 +111,27 @@ bool top(Stack st) {
     return false;
 }
 
-// void displayStack(Stack st) {
-//     if (!isEmpty(st))
-//     {
-//         for (int i = st.top; i > -1; i--)
-//         {
-//             displayPerson(st.person[i]);
-//         }
-//     }
-//     else
-//     {
-//         printf("Stack is Empty!\n");
-//     }
-// }
-
 void displayStack(Stack st) {
-    Stack temp = st;
-
-    while(!isEmpty(temp)) {
-        top(temp);
-        pop(&temp);
+    if (!isEmpty(st))
+    {
+        for (int i = st.top; i > -1; i--)
+        {
+            displayPerson(st.person[i]);
+        }
+    }
+    else
+    {
+        printf("Stack is Empty!\n");
     }
 }
+
+// void displayStack(Stack st) {
+//     Stack temp = st;
+
+//     while(!isEmpty(temp)) {
+//         top(temp);
+//         pop(&temp);
+//     }
+// }
 
 #endif

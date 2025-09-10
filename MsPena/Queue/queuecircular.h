@@ -36,46 +36,6 @@ void displayPerson(persontype person) {
 }
 
 // Operations
-void initQueue(Queue* q) {
-    q->front = -1;
-    q->rear = -1;
-}
 
-bool enqueue(Queue* q, persontype person) {
-    if ((q->rear + 1) % MAX == q->front)
-    {
-        return false;
-    }
 
-    if (q->front == -1)
-    {
-        q->front = 0;
-        q->rear = 0;
-    }
-    else
-    {
-        q->rear = (q->rear + 1) % MAX;
-    }
-
-    q->person[q->rear] = person;
-    return true;
-    
-}
-
-void displayQueue(Queue q) {
-    printf("Front = %d, Rear = %d\n", q.front, q.rear);
-    if (q.front != -1)
-    {
-        int i = q.front;
-        while (1)
-        {
-            displayPerson(q.person[i]);
-            if (i == q.rear) break;
-            i = (i + 1) % MAX;
-        }
-        
-    }
-    
-    
-}
 #endif

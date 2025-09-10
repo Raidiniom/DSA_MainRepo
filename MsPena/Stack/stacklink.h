@@ -121,41 +121,32 @@ bool pop(Stack* st) {
         return true;
     }
     
-
     return false;
 }
 
 bool top(Stack st) {
     if (!isEmpty(st))
     {
-        printf("[TOP] -> ");
         displayPerson(st->person);
+
+        return true;
     }
     else
     {
         printf("Stack is Empty!\n");
+
+        return false;
     }
-    
-    
 }
 
 void displayStack(Stack st) {
-    if (!isEmpty(st))
-    {
-        Stack trav = st;
+    Stack trav = st;
 
-        for (; trav != NULL; trav = trav->next)
-        {
-            displayPerson(trav->person);
-        }
-        
+    while (!isEmpty(trav)) {
+        displayPerson(trav->person);
+        trav = trav->next;
     }
-    else
-    {
-        printf("Stack is Empty!\n");
-    }
-    
-    
 }
+
 
 #endif
