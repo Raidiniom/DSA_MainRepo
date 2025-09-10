@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "stacklink.h"
+#include "stackarray.h"
 
 void main() {
     Stack myStack;
@@ -10,14 +10,14 @@ void main() {
     push(&myStack, createPerson("Charles", "Boqeucosa", 'C'));
     push(&myStack, createPerson("Clarence", "Diangco", 'X'));
 
-    pop(&myStack);
+    // pop(&myStack);
     
     displayStack(myStack);
     
-    top(myStack);
+    // top(myStack);
 
-    printf("makeNull\n");
-    makeNull(&myStack);
+    // printf("makeNull\n");
+    // makeNull(&myStack);
     
-    displayStack(myStack);
+    // displayStack(myStack);
 }   

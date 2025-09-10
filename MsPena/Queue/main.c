@@ -8,6 +8,10 @@ void main() {
 
     enqueue(&myQueue, createPerson("Ratilla", "Voltaire", 'L'));
     enqueue(&myQueue, createPerson("Ratilla", "Voltaire", 'L'));
+    enqueue(&myQueue, createPerson("Ratilla", "Voltaire", 'L'));
+    enqueue(&myQueue, createPerson("Ratilla", "Voltaire", 'L'));
+    enqueue(&myQueue, createPerson("Ratilla", "Voltaire", 'L'));
+    enqueue(&myQueue, createPerson("Ratilla", "Voltaire", 'L'));
 
     displayQueue(myQueue);
 }

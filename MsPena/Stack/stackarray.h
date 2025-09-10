@@ -103,26 +103,35 @@ bool pop(Stack* st) {
 bool top(Stack st) {
     if (!isEmpty(st))
     {
-        printf("[TOP] -> ");
         displayPerson(st.person[st.top]);
+
+        return true;
     }
-    
+
+    return false;
 }
 
+// void displayStack(Stack st) {
+//     if (!isEmpty(st))
+//     {
+//         for (int i = st.top; i > -1; i--)
+//         {
+//             displayPerson(st.person[i]);
+//         }
+//     }
+//     else
+//     {
+//         printf("Stack is Empty!\n");
+//     }
+// }
+
 void displayStack(Stack st) {
-    if (!isEmpty(st))
-    {
-        for (int i = st.top; i > -1; i--)
-        {
-            displayPerson(st.person[i]);
-        }
+    Stack temp = st;
+
+    while(!isEmpty(temp)) {
+        top(temp);
+        pop(&temp);
     }
-    else
-    {
-        printf("Stack is Empty!\n");
-    }
-    
-    
 }
 
 #endif
