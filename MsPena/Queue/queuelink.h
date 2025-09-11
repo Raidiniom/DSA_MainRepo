@@ -2,28 +2,24 @@
 #define QUEUELINK_H
 
 /**
- * @file    stacklink.h
- * @brief   Implementation of a stack data structure using link list.
+ * @file    queuelink.h
+ * @brief   Implementation of a queue data structure using linked lists.
  *
  * Detailed description:
- * This header file defines a simple stack implementation for storing
- * and managing `persontype` structures (containing first name, last name,
- * and middle initial). It provides basic stack operations such as push,
- * pop, top, and display. 
+ * This header file defines a queue implementation for storing and
+ * managing `persontype` structures (last name, first name, and middle initial).
+ * It provides the basic queue operations such as enqueue, dequeue, and display.
  *
- * The stack is implemented using a link list and
- * follows the LIFO (Last In, First Out) principle. It also includes helper
- * functions to create and display `persontype` entries.
+ * The queue is implemented using a singly linked list with front and rear
+ * pointers, and follows the FIFO (First In, First Out) principle. It also
+ * includes helper functions to create and display `persontype` entries.
  *
  * Functions to be implemented:
- *  - initStack   : Initializes the stack.
- *  - makeNull    : Resets the stack to an empty state.
- *  - isEmpty     : Checks if the stack is empty.
- *  - isFull      : Checks if the stack is full.
- *  - push        : Adds a new person onto the stack.
- *  - pop         : Removes the top person from the stack.
- *  - top         : Displays the current top element.
- *  - displayStack: Prints all elements in the stack.
+ *  - initQueue   : Initializes the queue.
+ *  - isEmpty     : Checks if the queue is empty.
+ *  - enqueue     : Inserts a new person at the rear of the queue.
+ *  - dequeue     : Removes a person from the front of the queue.
+ *  - displayPerson: Displays the details of a person.
  *
  * @author   Voltaire Ratilla
  * @date     Created: 08/09/2025
