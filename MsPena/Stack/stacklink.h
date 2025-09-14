@@ -139,14 +139,41 @@ bool top(Stack st) {
     }
 }
 
-void displayStack(Stack st) {
-    Stack trav = st;
-
-    while (!isEmpty(trav)) {
-        displayPerson(trav->person);
-        trav = trav->next;
-    }
+persontype peek(Stack st) {
+    return st->person;
 }
 
+void debugStack(Stack st, char* title) {
+    Stack trav = st;
+
+    printf("\n[DEBUG] %-20s\n", title);
+    for (; trav != NULL; trav = trav->next)
+    {
+        displayPerson(trav->person);
+    }
+    
+}
+
+void displayStack(Stack* st) {
+    if (!isEmpty(*st))
+    {
+        Stack display;
+        initStack(&display);
+
+        while (!isEmpty(*st))
+        {
+            displayPerson(peek(*st));
+            push(&display, peek(*st));
+            pop(st);
+        }
+     
+        while (!isEmpty(display))
+        {
+            push(st, peek(display));
+            pop(&display);
+        }
+    }
+    
+}
 
 #endif

@@ -111,13 +111,22 @@ bool top(Stack st) {
     return false;
 }
 
-void displayStack(Stack st) {
+persontype peek(Stack st) {
     if (!isEmpty(st))
     {
+        return st.person[st.top];
+    }
+}
+
+void debugStack(Stack st, char* title) {
+    if (!isEmpty(st))
+    {
+        printf("\n[DEBUG] %-20s\n", title);
         for (int i = st.top; i > -1; i--)
         {
             displayPerson(st.person[i]);
         }
+        printf("\n\n");
     }
     else
     {
@@ -125,13 +134,22 @@ void displayStack(Stack st) {
     }
 }
 
-// void displayStack(Stack st) {
-//     Stack temp = st;
+void displayStack(Stack* st) {
+    Stack display;
+    initStack(&display);
 
-//     while(!isEmpty(temp)) {
-//         top(temp);
-//         pop(&temp);
-//     }
-// }
+    while (!isEmpty(*st))
+    {
+        displayPerson(peek(*st));
+        push(&display, peek(*st));
+        pop(st);
+    }
+
+    while (!isEmpty(display))
+    {
+        push(st, peek(display));
+        pop(&display);
+    }
+}
 
 #endif

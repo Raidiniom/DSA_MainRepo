@@ -74,16 +74,78 @@ bool isEmpty(Queue q) {
 
 // deleteFirst for dequeue, insertFirst for enqueue
 bool enqueue(Queue* q, persontype person) {
-    if(!isEmpty(*q)) {
-        Node newNode = malloc(sizeof(struct node));
+    Node newNode = malloc(sizeof(struct node));
 
-        if(newNode != NULL) {
-            newNode->person = person;
-            newNode->next = q->rear;
+    if (newNode != NULL)
+    {
+        newNode->person = person;
+        newNode->next = NULL;
+
+        if (isEmpty(*q))
+        {
+            q->front = newNode;
             q->rear = newNode;
-            
         }
+        else
+        {
+            q->rear->next = newNode;
+            q->rear = newNode;
+        }
+        
+        return true;
     }
+    
+    return false;
+}
+
+bool dequeue(Queue* q) {
+    if (!isEmpty(*q))
+    {
+        Node delete = (*q).front;
+
+        (*q).front = (*q).front->next;
+
+        free(delete);
+    }
+    
+}
+
+persontype peek(Queue q) {
+    return q.front->person;
+}
+
+
+void debugQueue(Queue q, char* title) {
+    Node trav = q.front;
+    
+    printf("\n\n[DEBUG] %-20s\n", title);
+    for (; trav != NULL; trav = trav->next)
+    {
+        displayPerson(trav->person);
+    }
+    printf("==========\n");
+}
+
+void displayQueue(Queue *q) {
+    Queue display;
+    initQueue(&display);
+
+    while (!isEmpty(*q))
+    {
+        displayPerson(peek(*q));
+        enqueue(&display, peek(*q));
+        dequeue(q);
+    }
+
+    debugQueue(display, "display queue");
+    
+    while (!isEmpty(display))
+    {
+        enqueue(q, peek(display));
+        dequeue(&display);
+    }
+
+    debugQueue(*q, "original queue");
 }
 
 #endif
