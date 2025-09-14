@@ -27,7 +27,7 @@
  *
  * @author   Voltaire Ratilla
  * @date     Created: 08/09/2025
- * @date     Completed: dd/mm/yyyy
+ * @date     Completed: 14/09/yyyy
 */
 
 #include <stdio.h>
