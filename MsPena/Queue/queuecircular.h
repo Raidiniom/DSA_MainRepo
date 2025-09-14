@@ -65,6 +65,73 @@ void displayPerson(persontype person) {
 }
 
 // Operations
+void initQueue(Queue* q) {
+    q->front = 1;
+    q->rear = 0;
+}
 
+bool isEmpty(Queue q) {
+    return (q.rear + 1) % MAX == q.front;
+}
+
+bool isFull(Queue q) {
+    return (q.rear + 2) % MAX == q.front;
+}
+
+persontype peek(Queue q) {
+    return q.person[q.front];
+}
+
+bool enqueue(Queue* q, persontype person) {
+    if (!isFull(*q))
+    {
+        q->rear = (q->rear + 1) % MAX;
+        q->person[q->rear] = person;
+
+        return true;
+    }
+    
+    return false;
+}
+
+bool dequeue(Queue* q) {
+    if (!isEmpty(*q))
+    {
+        q->front = (q->front + 1) % MAX;
+
+        return true;
+    }
+    
+
+    return false;
+}
+
+void debugQueue(Queue q, char* title) {
+    printf("\n[DEBUG] %-20s\n", title);
+
+    for (int i = q.front; i != (q.rear + 1) % MAX; i = (i + 1) % MAX)
+    {
+        displayPerson(q.person[i]);
+    }
+    
+}
+
+void displayQueue(Queue* q) {
+    Queue trav;
+    initQueue(&trav);
+
+    while (!isEmpty((*q)))
+    {
+        displayPerson(peek((*q)));
+        enqueue(&trav, peek((*q)));
+        dequeue(q);
+    }
+
+    while (!isEmpty(trav))
+    {
+        enqueue(q, peek(trav));
+        dequeue(&trav);
+    }
+}
 
 #endif

@@ -23,7 +23,7 @@
  *
  * @author   Voltaire Ratilla
  * @date     Created: 08/09/2025
- * @date     Completed: dd/mm/2025
+ * @date     Completed: 14/09/2025
 */
 
 #include <stdio.h>
@@ -61,6 +61,76 @@ void displayPerson(persontype person) {
 }
 
 // Operations
+void initQueue(Queue* q) {
+    q->front = 0;
+    q->rear = 0;
+}
 
+bool isEmpty(Queue q) {
+    return q.front == q.rear;
+}
+
+bool isFull(Queue q) {
+    return q.rear == MAX;
+}
+
+persontype peek(Queue q) {
+    return q.person[q.front];
+}
+
+bool enqueue(Queue* q, persontype person) {
+    if (!isFull(*q))
+    {
+        q->person[q->rear] = person;
+        q->rear++;
+
+        return true;
+    }
+
+    return false;
+}
+
+bool dequeue(Queue* q) {
+    if (!isEmpty(*q))
+    {
+        q->rear--;
+        for (int i = 0; i < q->rear; i++)
+        {
+            q->person[i] = q->person[i + 1];
+        }
+        
+        return true;
+    }
+    
+
+    return false;
+}
+
+void debugQueue(Queue q, char* title) {
+    printf("\n[DEBUG] %-20s\n", title);
+    for (int i = q.front; i < q.rear; i++)
+    {
+        displayPerson(q.person[i]);
+    }
+    
+}
+
+void displayQueue(Queue* q) {
+    Queue trav;
+    initQueue(&trav);
+
+    while (!isEmpty(*q))
+    {
+        displayPerson(peek((*q)));
+        enqueue(&trav, peek((*q)));
+        dequeue(q);
+    }
+    
+    while (!isEmpty(trav))
+    {
+        enqueue(q, peek(trav));
+        dequeue(&trav);
+    }
+}
 
 #endif

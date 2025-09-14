@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <assert.h>
 
-#include "queuelink.h"
+#include "queuecircular.h"
 
 void main() {
     Queue myQueue;
@@ -12,4 +13,8 @@ void main() {
     enqueue(&myQueue, createPerson("Doe", "John", 'B'));
 
     displayQueue(&myQueue);
+
+    // dequeue(&myQueue);
+
+    // debugQueue(myQueue, "Original Queue");
 }
