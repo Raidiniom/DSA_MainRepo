@@ -28,6 +28,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define MAX 10
 
@@ -77,10 +78,31 @@ SET *SYSMETRIC_DIFFERENCE(SET A, SET B) {
     return SD;
 }
 
-/* TODO
-    isEqual(A, B) → true if A and B contain exactly the same elements.
-    Cardinality(A) → number of elements in the set.
-*/
+bool isEqual(SET A, SET B) {
+    for (int i = 0; i < MAX; i++)
+    {
+        if (A[i] != B[i])
+        {
+            return false;
+        }
+        
+    }
+    
+    return true;
+}
+
+int cardinality(SET A) {
+    int count = 0;
+    for (int i = 0; i < MAX; i++)
+    {
+        if (A[i] & 1)
+        {
+            count++;
+        }
+        
+    }
+    return count;
+}
 
 void displaySet(SET s, char setName) {
     printf("%c = {", setName);
