@@ -22,6 +22,8 @@ void main() {
     displayList(myList);
 
     deleteFirst(&myList);
+    deleteLast(&myList);
+    deleteAt(&myList, 2);
 
     printf("\n\nDeleting Data:\n");
     displayList(myList);
