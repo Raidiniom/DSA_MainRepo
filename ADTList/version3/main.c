@@ -15,6 +15,13 @@ void main() {
     insertAt(&mylist, createProduct("Ballpen", 18), 7);
 
     displayList(mylist);
-    
+
+    printf("\nDeleting\n");
+
+    deleteFirst(&mylist);
+    deleteLast(&mylist);
+    deleteAt(&mylist, 4);
+
+    displayList(mylist);
     freeADTList(&mylist);
 }
