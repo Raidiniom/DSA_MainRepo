@@ -87,7 +87,7 @@ void insertAt(ADTList* list, Product prod, int position) {
             list->prodList[i] = list->prodList[i - 1];
         }
         
-        list->prodList[position - 1] = prod;
+        list->prodList[index] = prod;
     }
     else
     {
