@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define max_size 10
+#define max_size 20
 
 typedef struct {
     char name[24];
@@ -17,7 +17,7 @@ typedef struct node {
     Product *prodList;
     int count;
     int capacity;
-} ADTList;
+} *ADTList;
 
 // Helper Functions
 Product createProduct(char* name, int stock) {
@@ -34,23 +34,23 @@ void displayProduct(Product prod) {
 }
 
 // Operations
-void initADTList(ADTList** list) {
-    (*list) = malloc(sizeof(struct node));
+void initADTList(ADTList* list) {
+    *list = malloc(sizeof(struct node));
     (*list)->prodList = malloc(sizeof(Product) * 2);
     (*list)->count = 0;
     (*list)->capacity = 2;
 }
 
 bool isEmpty(ADTList list) {
-    return list.count == 0;
+    return (*list).count == 0;
 }
 
 bool isFull(ADTList list) {
-    return list.count >= list.capacity;
+    return (*list).count >= (*list).capacity;
 }
 
-void insertFirst(ADTList** list, Product product) {
-    if (!isFull(**list))
+void insertFirst(ADTList* list, Product product) {
+    if (!isFull(*list))
     {
         for (int i = (*list)->count; i > 0; i--)
         {
@@ -79,8 +79,8 @@ void insertFirst(ADTList** list, Product product) {
     }
 }
 
-void insertLast(ADTList** list, Product product) {
-    if (!isFull(**list))
+void insertLast(ADTList* list, Product product) {
+    if (!isFull(*list))
     {
         (*list)->prodList[(*list)->count++] = product;
     }
@@ -99,9 +99,9 @@ void insertLast(ADTList** list, Product product) {
     
 }
 
-void insertAt(ADTList** list, Product product, int position) {
+void insertAt(ADTList* list, Product product, int position) {
     int index = position - 1;
-    if (!isFull(**list))
+    if (!isFull(*list))
     {
         for (int i = (*list)->count; i > index; i--)
         {
@@ -134,10 +134,113 @@ void insertAt(ADTList** list, Product product, int position) {
     
 }
 
-void displayList(ADTList list) {
-    for (int i = 0; i < list.count; i++)
+void insertMiddle(ADTList* list, Product product) {
+    int midpos = (*list)->count / 2;
+
+    if (!isFull(*list))
     {
-        displayProduct(list.prodList[i]);
+        for (int i = (*list)->count; i < midpos; i--)
+        {
+            (*list)->prodList[i] = (*list)->prodList[i - 1];
+        }
+        
+        (*list)->prodList[midpos] = product;
+    }
+    else
+    {
+        (*list)->capacity *= 2;
+
+        (*list)->prodList = realloc((*list)->prodList, sizeof(Product) * (*list)->capacity);
+
+        if ((*list)->prodList != NULL)
+        {
+            for (int i = (*list)->count; i < midpos; i--)
+            {
+                (*list)->prodList[i] = (*list)->prodList[i - 1];
+            }
+            
+            (*list)->prodList[midpos] = product;
+        }
+        
+    }
+    
+}
+
+void deleteFirst(ADTList* list) {
+    if (!isEmpty(*list))
+    {
+        for (int i = 0; i < (*list)->count; i++)
+        {
+            (*list)->prodList[i] = (*list)->prodList[i + 1];
+        }
+        
+        (*list)->count--;
+    }
+    else
+    {
+        printf("List is Empty\n");
+    }
+    
+}
+
+void deleteLast(ADTList* list) {
+    if (!isEmpty(*list))
+    {
+        --(*list)->count;
+    }
+    else
+    {
+        printf("List is Empty");
+    }
+    
+}
+
+void deleteAt(ADTList* list, int position) {
+    if (!isEmpty(*list))
+    {
+        for (int i = position - 1; i < (*list)->count; i++)
+        {
+            (*list)->prodList[i] = (*list)->prodList[i + 1];
+        }
+        
+        (*list)->count--;
+    }
+    else
+    {
+        printf("List is Empty");
+    }
+    
+}
+
+void deleteAllOccur(ADTList* list, char* name) {
+    if (!isEmpty(*list))
+    {
+        int i, j;
+
+        for (i = j = 0; i < (*list)->count; i++)
+        {
+            if (strcmp((*list)->prodList[i].name, name) != 0)
+            {
+                (*list)->prodList[j] = (*list)->prodList[i];
+                j++;
+            }
+            
+        }
+
+        (*list)->count = j;
+        
+    }
+    else
+    {
+        printf("List is Empty");
+    }
+    
+}
+
+void displayList(ADTList list) {
+    for (int i = 0; i < (*list).count; i++)
+    {
+        displayProduct((*list).prodList[i]);
     }
     
 }

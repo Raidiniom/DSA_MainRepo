@@ -3,7 +3,7 @@
 #include "adt.h"
 
 void main() {
-    ADTList *list;
+    ADTList list;
     initADTList(&list);
 
     insertFirst(&list, createProduct("Camon 30", 50));
@@ -19,12 +19,12 @@ void main() {
     insertLast(&list, createProduct("ASUS ROG Phone", 7));
 
     printf("Inserting Data:\n");
-    displayList((*list));
+    displayList(list);
 
     deleteFirst(&list);
     deleteLast(&list);
     deleteAt(&list, 2);
 
     printf("\n\nDeleting Data:\n");
-    displayList((*list));
+    displayList(list);
 }

@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define max_size 10
+#define max_size 20
 
 typedef struct {
     char name[24];
@@ -18,7 +18,7 @@ typedef struct {
 typedef struct node {
     Product prodList[max_size];
     int count;
-} ADTList;
+} *ADTList;
 
 // Helper Functions
 Product createProduct(char* name, int stock) {
@@ -35,21 +35,21 @@ void displayProduct(Product prod) {
 }
 
 // Operations
-void initADTList(ADTList** list) {
-    *list = (ADTList*) malloc(sizeof(struct node));
+void initADTList(ADTList* list) {
+    *list = malloc(sizeof(struct node));
     (*list)->count = 0;
 }
 
 bool isEmpty(ADTList list) {
-    return list.count == 0;
+    return (*list).count == 0;
 }
 
 bool isFull(ADTList list) {
-    return list.count >= max_size;
+    return (*list).count >= max_size;
 }
 
-void insertFirst(ADTList** list, Product prod) {
-    if (!isFull(**list))
+void insertFirst(ADTList* list, Product prod) {
+    if (!isFull(*list))
     {
         (*list)->count++;
 
@@ -67,8 +67,8 @@ void insertFirst(ADTList** list, Product prod) {
     
 }
 
-void insertLast(ADTList** list, Product prod) {
-    if (!isFull(**list))
+void insertLast(ADTList* list, Product prod) {
+    if (!isFull(*list))
     {
         (*list)->prodList[(*list)->count++] = prod;
     }
@@ -79,8 +79,8 @@ void insertLast(ADTList** list, Product prod) {
     
 }
 
-void insertAt(ADTList** list, Product prod, int position) {
-    if (!isFull(**list))
+void insertAt(ADTList* list, Product prod, int position) {
+    if (!isFull(*list))
     {
         int index = position - 1;
 
@@ -100,8 +100,8 @@ void insertAt(ADTList** list, Product prod, int position) {
     
 }
 
-void deleteFirst(ADTList** list) {
-    if (!isEmpty(**list))
+void deleteFirst(ADTList* list) {
+    if (!isEmpty(*list))
     {
         for (int i = 0; i < (*list)->count; i++)
         {
@@ -117,8 +117,8 @@ void deleteFirst(ADTList** list) {
     
 }
 
-void deleteLast(ADTList** list) {
-    if (!isEmpty(**list))
+void deleteLast(ADTList* list) {
+    if (!isEmpty(*list))
     {
         (*list)->count--;
     }
@@ -129,8 +129,8 @@ void deleteLast(ADTList** list) {
     
 }
 
-void deleteAt(ADTList** list, int position) {
-    if (!isEmpty(**list))
+void deleteAt(ADTList* list, int position) {
+    if (!isEmpty(*list))
     {
         int index = position - 1;
 
@@ -149,9 +149,9 @@ void deleteAt(ADTList** list, int position) {
 }
 
 void displayList(ADTList list) {
-    for (int i = 0; i < list.count; i++)
+    for (int i = 0; i < (*list).count; i++)
     {
-        displayProduct(list.prodList[i]);
+        displayProduct((*list).prodList[i]);
     }
     
 }

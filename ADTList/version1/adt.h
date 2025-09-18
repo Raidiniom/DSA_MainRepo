@@ -127,9 +127,8 @@ void deleteLast(ADTList* list) {
 void deleteAt(ADTList* list, int position) {
     if (!isEmpty(*list))
     {
-        int index = position - 1;
 
-        for (int i = index; i < list->count; i++)
+        for (int i = position - 1; i < list->count; i++)
         {
             list->prodList[i] = list->prodList[i + 1];
         }
