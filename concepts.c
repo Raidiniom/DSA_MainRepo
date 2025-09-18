@@ -9,4 +9,5 @@ void main() {
         printf("%d | int: %d, char: %c\n", i, arr[i], (chararry[i] == '\0') ? 'T' : 'F');
     }
     
+    printf("%d", 0 / 2);
 }

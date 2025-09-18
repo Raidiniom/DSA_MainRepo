@@ -85,13 +85,33 @@ void insertAt(ADTList* list, Product prod, int position) {
         int index = position - 1;
 
         (*list)->count++;
-
+        
         for (int i = (*list)->count - 1; i > index; i--)
         {
             (*list)->prodList[i] = (*list)->prodList[i - 1];
         }
         
         (*list)->prodList[index] = prod;
+    }
+    else
+    {
+        printf("List is full\n");
+    }
+    
+}
+
+void insertMiddle(ADTList* list, Product product) {
+    int midpos = (*list)->count / 2;
+
+    if (!isFull(*list))
+    {
+        for (int i = (*list)->count; i > midpos; i--)
+        {
+            (*list)->prodList[i] = (*list)->prodList[i - 1];
+        }
+        
+        (*list)->prodList[midpos] = product;
+        (*list)->count++;
     }
     else
     {
@@ -140,6 +160,51 @@ void deleteAt(ADTList* list, int position) {
         }
         
         (*list)->count--;
+    }
+    else
+    {
+        printf("List is Empty\n");
+    }
+    
+}
+
+void deleteFirstOccurance(ADTList* list, char* name) {
+    if (!isEmpty(*list))
+    {
+        int index;
+
+        for (index = 0; index < (*list)->count && strcmp((*list)->prodList[index].name, name) != 0; index++){}
+        
+        for (int i = index; i < (*list)->count; i++)
+        {
+            (*list)->prodList[i] = (*list)->prodList[i + 1];
+        }
+        
+        (*list)->count--;
+    }
+    else
+    {
+        printf("List is Empty\n");
+    }
+    
+}
+
+void deleteAllOccurance(ADTList* list, char* name) {
+    if (!isEmpty(*list))
+    {
+        int i, j;
+
+        for (i = j = 0; i < (*list)->count; i++)
+        {
+            if (strcmp((*list)->prodList[i].name, name) != 0)
+            {
+                (*list)->prodList[j] = (*list)->prodList[i];
+                j++;
+            }
+            
+        }
+        
+        (*list)->count = j;
     }
     else
     {

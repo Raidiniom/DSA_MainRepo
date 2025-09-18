@@ -120,13 +120,51 @@ void insertAt(ADTList* list, Product product, int position) {
 
         list->prodList = realloc(list->prodList, list->capacity * sizeof(Product));
 
-        for (int i = list->count; i > index; i--)
+        if (list->prodList != NULL)
+        {
+            for (int i = list->count; i > index; i--)
+            {
+                list->prodList[i] = list->prodList[i - 1];
+            }
+            
+            list->prodList[index] = product;
+            list->count++;
+        }
+        
+    }
+    
+}
+
+void insertMiddle(ADTList* list, Product product) {
+    int midpos = list->count / 2;
+
+    if (!isFull(*list))
+    {
+        for (int i = list->count; i > midpos; i--)
         {
             list->prodList[i] = list->prodList[i - 1];
         }
         
-        list->prodList[index] = product;
+        list->prodList[midpos] = product;
         list->count++;
+    }
+    else
+    {
+        list->capacity *= 2;
+
+        list->prodList = realloc(list->prodList, list->capacity * sizeof(Product));
+
+        if (list->prodList != NULL)
+        {
+            for (int i = list->count; i > midpos; i--)
+            {
+                list->prodList[i] = list->prodList[i - 1];
+            }
+            
+            list->prodList[midpos] = product;
+            list->count++;
+        }
+        
     }
     
 }
@@ -172,6 +210,51 @@ void deleteAt(ADTList* list, int position) {
         }
         
         list->count--;
+    }
+    else
+    {
+        printf("List is Empty\n");
+    }
+    
+}
+
+void deleteFirstOccurence(ADTList* list, char* name) {
+    if (!isEmpty(*list))
+    {
+        int index;
+
+        for (index = 0; index < list->count && strcmp(list->prodList[index].name, name) != 0; index++){}
+        
+        for (int i = index; i < list->count; i++)
+        {
+            list->prodList[i] = list->prodList[i + 1];
+        }
+        
+        list->count--;
+    }
+    else
+    {
+        printf("List is Empty\n");
+    }
+    
+}
+
+void deleteAllOccurence(ADTList* list, char* name) {
+    if (!isEmpty(*list))
+    {
+        int i, j;
+
+        for (i = j = 0; i < list->count; i++)
+        {
+            if (strcmp(list->prodList[i].name, name) != 0)
+            {
+                list->prodList[j] = list->prodList[i];
+                j++;
+            }
+            
+        }
+        
+        list->count = j;
     }
     else
     {
