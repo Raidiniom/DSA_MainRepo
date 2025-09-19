@@ -27,7 +27,7 @@ Box createBox(char* name, float weight) {
 }
 
 void displayBox(Box box) {
-    printf("%-16s%.2f Kg\n", box.name, box.weight);
+    printf("%-16s%.2f\n", box.name, box.weight);
 }
 
 // Operations
@@ -37,9 +37,6 @@ Node initList() {
 
 void insertFirst(Node* list, Box box) {
     Node newNode = (Node) malloc(sizeof(struct node));
-
-    // This also works but better with type casting above
-    // Node newNode = malloc(sizeof(struct node));
     
     if (newNode != NULL)
     {
@@ -51,7 +48,7 @@ void insertFirst(Node* list, Box box) {
 }
 
 void insertLast(Node* list, Box box) {
-    Node* last = list;
+    Node *last = list;
 
     for (; *last != NULL; last = &(*last)->link){}
     
@@ -65,9 +62,77 @@ void insertLast(Node* list, Box box) {
     
 }
 
-void displayLinkList(Node list) {
-    for (; list != NULL; list = list->link)
+void insertAt(Node* list, Box box, int position) {
+    Node *pos = list;
+    int index = position - 1;
+    for (int i = 0; *pos != NULL && i < index; pos = &(*pos)->link, i++){}
+
+    Node newNode = (Node) malloc(sizeof(struct node));
+    
+    if (newNode != NULL)
     {
+        newNode->ofcontent = box;
+        newNode->link = (*pos)->link;
+        (*pos)->link = newNode;
+    }
+    
+}
+
+void insertMiddle(Node* list, Box box) {
+    Node* trav = list;
+    Node* travfast = list;
+
+    for (; *travfast != NULL && (*travfast)->link != NULL; travfast = &(*travfast)->link->link)
+    {
+        trav = &(*trav)->link;
+    }
+
+    Node newNode = (Node) malloc(sizeof(struct node));
+
+    if (newNode != NULL)
+    {
+        newNode->ofcontent = box;
+        newNode->link = (*trav)->link;
+        (*trav)->link = newNode;
+    }
+    
+}
+
+void deleteFirst(Node* list) {
+    Node delete = *list;
+    *list = (*list)->link;
+    free(delete);
+}
+
+void deleteLast(Node* list) {
+    Node* travdel = list;
+
+    for (; (*travdel)->link != NULL; travdel = &(*travdel)->link){}
+
+    Node delete = *travdel;
+    *travdel = NULL;
+
+    free(delete);   
+}
+
+void deleteAt(Node* list, int position) {
+    Node* travdel = list;
+    
+    int index = position - 1;
+
+    for (int i = 0; *travdel != NULL && i < index; travdel = &(*travdel)->link, i++){}
+
+    Node delete = *travdel;
+    *travdel = (*travdel)->link;
+    free(delete);
+    
+}
+
+void displayLinkList(Node list) {
+    printf("%-16s%-16s\n", "# Contents", "Weight in Kilos");
+    for (int i = 0; list != NULL; list = list->link, i++)
+    {
+        printf("%d ", i + 1);
         displayBox(list->ofcontent);
     }
     
