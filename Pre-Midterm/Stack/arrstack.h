@@ -63,8 +63,68 @@ Chip top(Can container) {
     return container.contents[container.top];
 }
 
+void pushContainer(Can* container, Chip chip) {
+    for (int i = 0; i < 3; i++)
+    {
+        if (!isFull(container[i]))
+        {
+            push(&container[i], chip);
+            printf("Pushed %s %.2f into Can #%d\n", chip.flavor, chip.weight, i + 1);
+            return;
+        }
+        
+    }
+    
+}
+
+void popContainer(Can* container) {
+    for (int i = 2; i >= 0; i--)
+    {
+        if (!isEmpty(container[i]))
+        {
+            pop(&container[i]);
+            printf("Pop from Container #%d\n",i);
+            return;
+        }
+        
+    }
+    
+}
+
+char* flavorChoice() {
+    int fc;
+    printf("Choose Flavor:\n0 - Vanilla\n1 - Spicy\n2 - Mustard\n");
+    scanf("%d", &fc);
+    switch (fc)
+    {
+    case 0:
+        return "Vanilla";
+        break;
+
+    case 1:
+        return "Spicy";
+        break;
+
+    case 2:
+        return "Mustard";
+        break;
+    
+    default:
+        printf("Not One of the Options!\n");
+        return "Null";
+        break;
+    }
+}
+
+float weightChoice() {
+    float wc;
+    printf("Enter chip weight: ");
+    scanf("%f", &wc);
+    return wc;
+}
+
 void displayCan(Can* container) {
-    Can temp = {.top = 0};
+    Can temp = {.top = -1};
 
     while (!isEmpty(*container))
     {
@@ -89,6 +149,10 @@ void displayAllCans(Can* containers) {
         printf("\n");
     }
     
+}
+
+void displayMenu() {
+    printf("Stack Operations:\n0 - Push\n1 - Pop\n2 - Open Container\n3 - Stop Program\n");
 }
 
 #endif

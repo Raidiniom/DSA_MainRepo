@@ -1,13 +1,41 @@
 #include "arrstack.h"
 
-void main() {
+int main(void) {
     Can pringles[3] = {{.top = -1}, {.top = -1}, {.top = -1}};
     
-    push(&pringles[0], createChip("Spicy", 2));
-    push(&pringles[0], createChip("Spicy", 2));
-    push(&pringles[0], createChip("Spicy", 2));
-    push(&pringles[0], createChip("Mustard", 4));
-    push(&pringles[0], createChip("Matcha", 3));
+    bool stopProgram = true;
 
-    displayAllCans(pringles);
+    while (stopProgram)
+    {
+        int choice;
+
+        displayMenu();
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 0:
+                pushContainer(pringles, createChip(flavorChoice(), weightChoice()));
+                break;
+
+            case 1:
+                popContainer(pringles);
+                break;
+
+            case 2:
+                displayAllCans(pringles);
+                break;
+
+            case 3:
+                printf("Stopping Program!\n");
+                stopProgram = false;
+                break;
+            
+            default:
+                printf("Not one of the option!\n");
+                break;
+        }
+    }
+    
+    return 0;
 }
