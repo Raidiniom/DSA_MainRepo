@@ -1,6 +1,6 @@
 #include "arrstack.h"
 
-int main(void) {
+void main() {
     Can pringles[3] = {{.top = -1}, {.top = -1}, {.top = -1}};
     
     bool stopProgram = true;
@@ -37,5 +37,4 @@ int main(void) {
         }
     }
     
-    return 0;
 }

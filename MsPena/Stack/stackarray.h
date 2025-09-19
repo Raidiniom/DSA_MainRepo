@@ -83,8 +83,7 @@ bool isFull(Stack st) {
 bool push(Stack* st, persontype person) {
     if (!isFull(*st))
     {
-        st->top++;
-        st->person[st->top] = person;
+        st->person[st->top++] = person;
 
         return true;
     }
