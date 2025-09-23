@@ -63,7 +63,7 @@ Chip top(Can container) {
     return container.contents[container.top];
 }
 
-void pushContainer(Can* container, Chip chip) {
+void pushContainer(Can container[], Chip chip) {
     for (int i = 0; i < 3; i++)
     {
         if (!isFull(container[i]))
