@@ -1,7 +1,7 @@
 #include "sets.h"
 
 void main() {
-    SET A, B, *C, *D;
+    SET A, B, *C, *D, *E;
     initSET(&A);
     initSET(&B);
 
@@ -23,8 +23,14 @@ void main() {
     C = UNION(A, B);
     display((*C), 'C');
 
-    D = INTERSECTION(A, B);
-    display((*D), 'D');
+    printf("SET A Cardinality: %d\n", cardinality(A));
+    printf("is 6 a member of SET B? %-6s\n", (isMember(B, 6)) ? "Yes" : "No");
+
+    // D = INTERSECTION(A, B);
+    // display((*D), 'D');
+
+    // E = DIFFERENCE(A, B);
+    // display((*E), 'E');
 
     // printf("Testing makeNULL\n");
     // makeNULL(C);
