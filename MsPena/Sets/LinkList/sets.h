@@ -125,105 +125,115 @@ void delete(SET* A, int number) {
     
 }
 
-SET* UNION(SET A, SET B) {
-    SET* U = malloc(sizeof(SET));
-    initSET(U);
+SET UNION(SET A, SET B) {
+    SET U = NULL;
 
-    Node ap = A, bp = B;
+    Node ap = A, bp = B, *Uptr = &U;
 
     while (ap != NULL && bp != NULL)
     {
-        if (ap->member < bp->member)
+        *Uptr = malloc(sizeof(struct node));
+
+        if (Uptr != NULL)
         {
-            insert(U, ap->member);
-            ap = ap->next;
+            if (ap->member < bp->member)
+            {
+                (*Uptr)->member = ap->member;
+                ap = ap->next;
+            }
+            else 
+            {
+                if (bp->member == ap->member) {
+                    ap = ap->next;
+                }
+                
+                (*Uptr)->member = bp->member;
+                bp = bp->next;
+            }
         }
-        else if (bp->member < ap->member)
+        
+        Uptr = &(*Uptr)->next;
+    }
+
+    if (bp != NULL)
+    {
+        ap = bp;
+    }
+    
+
+    for (; ap != NULL; ap = ap->next)
+    {
+        *Uptr = malloc(sizeof(struct node));
+        if (Uptr != NULL)
         {
-            insert(U, bp->member);
-            bp = bp->next;
-        }
-        else
-        {
-            insert(U, ap->member);
-            ap = ap->next;
-            bp = bp->next;
+            (*Uptr)->member = ap->member;
+            Uptr = &(*Uptr)->next;
         }
         
     }
 
-    for (; ap != NULL; ap = ap->next)
-    {
-        insert(U, ap->member);
-    }
-
-    for (; bp != NULL; bp = bp->next)
-    {
-        insert(U, bp->member);
-    }
+    *Uptr = NULL;
 
     return U;
 }
 
-SET* INTERSECTION(SET A, SET B) {
-    SET* IN = malloc(sizeof(SET));
-    initSET(IN);
+SET INTERSECTION(SET A, SET B) {
+    SET IN = NULL;
+    Node ap = A, bp = B, *InPtr = &IN;
 
-    Node ap = A, bp = B;
-
-    while (ap != NULL && bp != NULL)
-    {
-        if (ap->member == bp->member)
-        {
-            insert(IN, ap->member);
+    while (ap != NULL && bp != NULL) {
+        if (ap->member == bp->member) {
+            *InPtr = malloc(sizeof(struct node));
+            if (*InPtr != NULL) {
+                (*InPtr)->member = ap->member;
+                InPtr = &(*InPtr)->next;
+            }
             ap = ap->next;
             bp = bp->next;
-        }
-        else if (ap->member < bp->member)
-        {
+        } else if (ap->member < bp->member) {
             ap = ap->next;
-        }
-        else
-        {
+        } else {
             bp = bp->next;
         }
     }
 
+    *InPtr = NULL;
     return IN;
 }
 
-SET* DIFFERENCE(SET A, SET B) {
-    SET* DIFF = malloc(sizeof(SET));
-    initSET(DIFF);
+SET DIFFERENCE(SET A, SET B) {
+    SET DIFF = NULL;
+    Node ap = A, bp = B, *DiffPtr = &DIFF;
 
-    Node ap = A, bp = B;
-
-    while (ap != NULL && bp != NULL)
-    {
-        if (ap->member == bp->member)
-        {
+    while (ap != NULL && bp != NULL) {
+        if (ap->member == bp->member) {
             ap = ap->next;
             bp = bp->next;
-        }
-        else if (ap->member < bp->member)
-        {
-            insert(DIFF, ap->member);
+        } else if (ap->member < bp->member) {
+            *DiffPtr = malloc(sizeof(struct node));
+            if (*DiffPtr != NULL) {
+                (*DiffPtr)->member = ap->member;
+                DiffPtr = &(*DiffPtr)->next;
+            }
             ap = ap->next;
-        }
-        else
-        {
+        } else {
             bp = bp->next;
         }
     }
-    
+
+    // Add remaining elements of A
     while (ap != NULL) {
-        insert(DIFF, ap->member);
+        *DiffPtr = malloc(sizeof(struct node));
+        if (*DiffPtr != NULL) {
+            (*DiffPtr)->member = ap->member;
+            DiffPtr = &(*DiffPtr)->next;
+        }
         ap = ap->next;
     }
 
+    *DiffPtr = NULL;
     return DIFF;
 }
-
 
 void display(SET A, char setName) {
     Node trav = A;
