@@ -24,6 +24,20 @@ void initDictionary(Dictionary dih) {
     
 }
 
+void makeNull(Dictionary dih) {
+    for (int i = 0; i < MAXSIZE; i++)
+    {
+        while (dih[i] != NULL)
+        {
+            Node delete = dih[i];
+            dih[i] = dih[i]->next;
+            free(delete);
+        }   
+        
+    }
+    
+}
+
 void insert(Dictionary dih, int data) {
     int index = onesPlaceHash(data);
     Node newNode = malloc(sizeof(SizeNode));
@@ -61,16 +75,24 @@ void display(Dictionary dih) {
         printf("[%d] | ", i);
         Node trav = dih[i];
 
-        for (; trav != NULL; trav = trav->next)
+        if (trav != NULL)
         {
-            printf("%d", trav->data);
-
-            if (trav->next != NULL)
+            for (; trav != NULL; trav = trav->next)
             {
-                printf(", ");
+                printf("%d", trav->data);
+
+                if (trav->next != NULL)
+                {
+                    printf(", ");
+                }
+                
             }
-            
         }
+        else
+        {
+            printf("Empty");
+        }
+        
         printf("\n");
     }
     
