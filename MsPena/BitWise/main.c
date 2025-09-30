@@ -44,4 +44,9 @@ void main() {
     displaySET(my);
     printf("B = ");
     displaySET(mx);
+
+    printf("Deleteing 3 from set B\n");
+    delete(&mx, 3);
+    printf("B = ");
+    displaySET(mx);
 }   

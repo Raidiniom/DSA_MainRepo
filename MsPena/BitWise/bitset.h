@@ -57,7 +57,7 @@ void insert(SET* x, int member) {
 void delete(SET* x, int member) {
     unsigned char memberMask = 1 << member;
 
-    *x = *x & memberMask;
+    *x = *x & (~memberMask);
 }
 
 bool isMember(SET x, int member) {
