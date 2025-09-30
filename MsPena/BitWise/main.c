@@ -34,4 +34,13 @@ void main() {
     SET *D = DIFFERENCE(my, mx);
     displaySET((*D));
     // printf("is member %-10s", (isMember(my, 5) ? "yes" : "no"));
+
+    insert(&my, 4);
+    insert(&mx, 3);
+
+    printf("Insert 4 existing and insert 3 non-existing\n");
+    printf("A = ");
+    displaySET(my);
+    printf("B = ");
+    displaySET(mx);
 }   
