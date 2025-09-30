@@ -17,22 +17,17 @@ void main() {
     insert(&mx, 5);
     insert(&mx, 6);
 
-    printf("A = ");
-    displaySET(my);
-    printf("B = ");
-    displaySET(mx);
+    displaySET(my, "A");
+    displaySET(mx, "B");
 
-    printf("A u B = ");
     SET B = UNION(my, mx);
-    displaySET(B);
+    displaySET(B, "A u B");
 
-    printf("A ^ B = ");
     SET C = INTERSECTION(my, mx);
-    displaySET(C);
+    displaySET(C, "A ^ B");
 
-    printf("A - B = ");
     SET D = DIFFERENCE(my, mx);
-    displaySET(D);
+    displaySET(D, "A - B");
 
     printf("is 6 a member of set A: %-10s\n", (isMember(my, 6) ? "yes" : "no"));
 
@@ -40,13 +35,10 @@ void main() {
     insert(&mx, 3);
 
     printf("Insert 4 existing and insert 3 non-existing\n");
-    printf("A = ");
-    displaySET(my);
-    printf("B = ");
-    displaySET(mx);
+    displaySET(my, "A");
+    displaySET(mx, "B");
 
     printf("Deleteing 3 from set B\n");
     delete(&mx, 3);
-    printf("B = ");
-    displaySET(mx);
+    displaySET(mx, "B");
 }   

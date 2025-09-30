@@ -76,20 +76,25 @@ SET DIFFERENCE(SET A, SET B) {
     return A & ~B;
 }
 
-void displaySET(SET x) {
+void displaySET(SET x, char* label) {
     unsigned char mask = 1;
 
-    for (int i = 0; mask != 0; i++)
-    {
-        if (x & mask)
-        {
-            printf("%d ", i);
+    printf("%-6s= {", label);
+
+    for (int i = 0; mask != 0; i++) {
+        if (x & mask) {
+            printf("%d", i);
+
+            unsigned char rest = x & (~((mask << 1) - 1));
+            if (rest != 0) {
+                printf(", ");
+            }
         }
-        
         mask = mask << 1;
     }
 
-    printf("\n");
+    printf("}\n");
 }
+
 
 #endif
