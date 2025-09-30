@@ -65,7 +65,7 @@ bool isMember(SET x, int member) {
 }
 
 SET* UNION(SET A, SET B) {
-    SET* U = (SET*) malloc((sizeof(char) * 8));
+    SET* U = (SET*) malloc(sizeof(SET));
 
     *U = A | B;
 
@@ -73,7 +73,7 @@ SET* UNION(SET A, SET B) {
 }
 
 SET* INTERSECTION(SET A, SET B) {
-    SET* I = (SET*) malloc((sizeof(char) * 8));
+    SET* I = (SET*) malloc(sizeof(SET));
 
     *I = A & B;
 
@@ -81,19 +81,24 @@ SET* INTERSECTION(SET A, SET B) {
 }
 
 SET* DIFFERENCE(SET A, SET B) {
-    SET* D = (SET*) malloc((sizeof(char) * 8));
+    SET* D = (SET*) malloc(sizeof(SET));
 
-    *D = A & !B;
+    *D = A & ~B;
 
     return D;
 }
 
 void displaySET(SET x) {
-    unsigned char mask = 1 << ((sizeof(char) * 8) - 1);
+    unsigned char mask = 1;
 
-    while (mask != 0) {
-        printf("%d ", (x & mask) ? 1 : 0);
-        mask = mask >> 1;
+    for (int i = 0; mask != 0; i++)
+    {
+        if (x & mask)
+        {
+            printf("%d ", i);
+        }
+        
+        mask = mask << 1;
     }
 
     printf("\n");
