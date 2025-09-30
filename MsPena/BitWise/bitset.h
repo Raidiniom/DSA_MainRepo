@@ -64,28 +64,16 @@ bool isMember(SET x, int member) {
     return x & (1 << member);
 }
 
-SET* UNION(SET A, SET B) {
-    SET* U = (SET*) malloc(sizeof(SET));
-
-    *U = A | B;
-
-    return U;
+SET UNION(SET A, SET B) {
+    return A | B;
 }
 
-SET* INTERSECTION(SET A, SET B) {
-    SET* I = (SET*) malloc(sizeof(SET));
-
-    *I = A & B;
-
-    return I;
+SET INTERSECTION(SET A, SET B) {
+    return A & B;
 }
 
-SET* DIFFERENCE(SET A, SET B) {
-    SET* D = (SET*) malloc(sizeof(SET));
-
-    *D = A & ~B;
-
-    return D;
+SET DIFFERENCE(SET A, SET B) {
+    return A & ~B;
 }
 
 void displaySET(SET x) {

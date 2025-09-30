@@ -23,17 +23,18 @@ void main() {
     displaySET(mx);
 
     printf("A u B = ");
-    SET *B = UNION(my, mx);
-    displaySET((*B));
+    SET B = UNION(my, mx);
+    displaySET(B);
 
     printf("A ^ B = ");
-    SET *C = INTERSECTION(my, mx);
-    displaySET((*C));
+    SET C = INTERSECTION(my, mx);
+    displaySET(C);
 
     printf("A - B = ");
-    SET *D = DIFFERENCE(my, mx);
-    displaySET((*D));
-    // printf("is member %-10s", (isMember(my, 5) ? "yes" : "no"));
+    SET D = DIFFERENCE(my, mx);
+    displaySET(D);
+
+    printf("is 6 a member of set A: %-10s\n", (isMember(my, 6) ? "yes" : "no"));
 
     insert(&my, 4);
     insert(&mx, 3);
