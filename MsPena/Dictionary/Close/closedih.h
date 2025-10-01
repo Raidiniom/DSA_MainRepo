@@ -4,28 +4,90 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
-#define MAXSIZE 20
+#define MAXSIZE 10
 
 typedef enum {empty, occupied, deleted} Status;
 
 typedef struct {
-    int data;
+    char FName[24];
+    char LName[16];
+    char MI;
+} Person;
+
+typedef struct {
+    Person person;
     Status status;
 } Entry;
 
 typedef Entry Dictionary[MAXSIZE];
 
+// Helper Functions
+Person createPerson(char* FName, char* LName, char MI) {
+    Person initPerson;
+
+    strcpy(initPerson.FName, FName);
+    strcpy(initPerson.LName, LName);
+    initPerson.MI = MI;
+
+    return initPerson;
+}
+
+void printPerson(Person psn) {
+    printf("%-10s %c, %-10s", psn.FName, psn.MI, psn.LName);
+}
+
+int nameHash(char* FName, char* LName, char MI) {
+    int sum = 0;
+
+    // Add up characters from first name
+    for (int i = 0; FName[i] != '\0'; i++) {
+        sum += FName[i];
+    }
+
+    // Add up characters from last name
+    for (int i = 0; LName[i] != '\0'; i++) {
+        sum += LName[i];
+    }
+
+    // Add the middle initial
+    sum += MI;
+
+    // Fit into dictionary size
+    return sum % MAXSIZE;
+}
+
+
 // Operations
 void initDictionary(Dictionary dih) {
     for (int i = 0; i < MAXSIZE; i++)
     {
-        dih[i].data = 0;
         dih[i].status = empty;
     }
 }
 
-void display(Dictionary dih) {
+bool insert(Dictionary dih, Person psn) {
+    int index = nameHash(psn.FName, psn.LName, psn.MI), start = index;
+
+    do
+    {
+        if (dih[index].status == empty || dih[index].status == deleted)
+        {
+            dih[index].person = psn;
+            dih[index].status = occupied;
+
+            return true;
+        }
+        
+        index = (index + 1) % MAXSIZE;
+    } while (index != start);
+    
+    return false;
+}
+
+void display(Dictionary dih, char* label) {
+    printf("%-20s\n", label);
     for (int i = 0; i < MAXSIZE; i++)
     {
         printf("[%d] | ", i);
@@ -39,7 +101,7 @@ void display(Dictionary dih) {
         }
         else
         {
-            printf("%d", dih[i].data);
+            printPerson(dih[i].person);
         }
         printf("\n");
     }
