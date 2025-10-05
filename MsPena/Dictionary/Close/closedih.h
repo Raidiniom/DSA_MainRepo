@@ -38,7 +38,7 @@ void printPerson(Person psn) {
     printf("%-10s %c, %-10s", psn.FName, psn.MI, psn.LName);
 }
 
-int nameHash(char* FName, char* LName, char MI) {
+int nameHash(char* FName, char* LName) {
     int sum = 0;
 
     // Add up characters from first name
@@ -51,12 +51,10 @@ int nameHash(char* FName, char* LName, char MI) {
         sum += LName[i];
     }
 
-    // Add the middle initial
-    sum += MI;
-
     // Fit into dictionary size
     return sum % MAXSIZE;
 }
+
 
 
 // Operations
@@ -67,22 +65,54 @@ void initDictionary(Dictionary dih) {
     }
 }
 
+int search(Dictionary dih, char* FName, char* LName) {
+    int index = nameHash(FName, LName);  // removed MI
+    int start = index;
+
+    do {
+        if (dih[index].status == occupied &&
+            strcmp(dih[index].person.FName, FName) == 0 &&
+            strcmp(dih[index].person.LName, LName) == 0) {
+            return index;
+        }
+
+        index = (index + 1) % MAXSIZE;
+    } while (index != start);
+
+    return -1;
+}
+
+
 bool insert(Dictionary dih, Person psn) {
-    int index = nameHash(psn.FName, psn.LName, psn.MI), start = index;
+    int index = nameHash(psn.FName, psn.LName);  // removed MI
+    int start = index;
+
+    do {
+        if (dih[index].status == empty || dih[index].status == deleted) {
+            dih[index].person = psn;
+            dih[index].status = occupied;
+            return true;
+        }
+        index = (index + 1) % MAXSIZE;
+    } while (index != start);
+
+    return false;
+}
+
+bool delete(Dictionary dih, char* FName, char* LName) {
+    int index = nameHash(FName, LName), start = index;
 
     do
     {
-        if (dih[index].status == empty || dih[index].status == deleted)
-        {
-            dih[index].person = psn;
-            dih[index].status = occupied;
-
+        if (dih[index].status == occupied && strcmp(dih[index].person.FName, FName) == 0 && strcmp(dih[index].person.LName, LName) == 0) {
+            dih[index].status = deleted;
             return true;
         }
-        
+
         index = (index + 1) % MAXSIZE;
     } while (index != start);
     
+
     return false;
 }
 
