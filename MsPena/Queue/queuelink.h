@@ -72,9 +72,9 @@ bool isEmpty(Queue q) {
     return q.front == NULL;
 }
 
-// deleteFirst for dequeue, insertFirst for enqueue
+// deleteFirst at the front for dequeue, insertFirst at the rear for enqueue
 bool enqueue(Queue* q, persontype person) {
-    Node newNode = malloc(sizeof(struct node));
+    Node newNode = (Node) malloc(sizeof(struct node));
 
     if (newNode != NULL)
     {
@@ -101,11 +101,11 @@ bool enqueue(Queue* q, persontype person) {
 bool dequeue(Queue* q) {
     if (!isEmpty(*q))
     {
-        Node delete = (*q).front;
+        Node delNode = (*q).front;
 
         (*q).front = (*q).front->next;
 
-        free(delete);
+        free(delNode);
     }
     
 }
@@ -126,10 +126,11 @@ void debugQueue(Queue q, char* title) {
     printf("==========\n");
 }
 
-void displayQueue(Queue *q) {
+void displayQueue(Queue *q, char* label) {
     Queue display;
     initQueue(&display);
 
+    printf("%-20s\n", label);
     while (!isEmpty(*q))
     {
         displayPerson(peek(*q));
@@ -137,15 +138,11 @@ void displayQueue(Queue *q) {
         dequeue(q);
     }
 
-    debugQueue(display, "display queue");
-    
     while (!isEmpty(display))
     {
         enqueue(q, peek(display));
         dequeue(&display);
     }
-
-    debugQueue(*q, "original queue");
 }
 
 #endif
