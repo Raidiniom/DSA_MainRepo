@@ -1,6 +1,20 @@
 #ifndef CHARLIST_H
 #define CHARLIST_H
 
+/**
+ * @file    
+ * @brief  
+ *
+ * Detailed description:
+ *
+ * Functions to be implemented:
+ *  - function   : Description
+ *
+ * @author   Voltaire Ratilla
+ * @date     Created: DD/MM/YR
+ * @date     Completed: DD/MM/YR
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -27,7 +41,7 @@ void insert(charList* L, char elem) {
 
 }
 
-void delete(charList* L, char x) {
+void deleteElem(charList* L, char x) {
     int pos = 0;
 
     for (; pos < L->count && L->elem[pos] != x; pos++){}

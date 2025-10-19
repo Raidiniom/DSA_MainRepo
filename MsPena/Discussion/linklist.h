@@ -1,6 +1,20 @@
 #ifndef LINKLIST_H
 #define LINKLIST_H
 
+/**
+ * @file    
+ * @brief  
+ *
+ * Detailed description:
+ *
+ * Functions to be implemented:
+ *  - function   : Description
+ *
+ * @author   Voltaire Ratilla
+ * @date     Created: DD/MM/YR
+ * @date     Completed: DD/MM/YR
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
