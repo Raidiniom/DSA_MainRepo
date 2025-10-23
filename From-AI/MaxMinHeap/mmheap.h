@@ -1,19 +1,7 @@
 #ifndef MMHEAP_H
 #define MMHEAP_H
 
-/**
- * @file    
- * @brief   
- *
- * Detailed description:
- *
- * Functions to be implemented:
- *  - initHeap   : Initializes the Heap.
- *
- * @author   Voltaire Ratilla
- * @date     Created: 19/10/2025
- * @date     Completed: ~~/~~/2025
-*/
+// From ChatGPT
 
 #include <stdio.h>
 
