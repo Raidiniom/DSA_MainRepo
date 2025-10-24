@@ -78,12 +78,12 @@ bool isFull(Stack st) {
 void makeNull(Stack* st) {
     if (!isEmpty(*st))
     {
-        Stack delete;
+        Stack deleteElem;
         while (*st != NULL)
         {
-            delete = *st;
+            deleteElem = *st;
             *st = (*st)->next;
-            free(delete);
+            free(deleteElem);
         }
         
         *st = NULL;
@@ -96,7 +96,7 @@ void makeNull(Stack* st) {
 }
 
 bool push(Stack* st, persontype person) {
-    Stack newNode = malloc(sizeof(struct node));
+    Stack newNode =(Stack) malloc(sizeof(struct node));
 
     if (newNode != NULL)
     {
@@ -113,10 +113,10 @@ bool push(Stack* st, persontype person) {
 bool pop(Stack* st) {
     if (!isEmpty(*st))
     {
-        Stack delete = *st;
+        Stack deleteElem = *st;
         *st = (*st)->next;
 
-        free(delete);
+        free(deleteElem);
 
         return true;
     }
