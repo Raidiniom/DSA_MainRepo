@@ -1,29 +1,38 @@
 #include "set.h"
 
 void main() {
-    Set A;
+    Set A, B;
     initSet(&A);
+    initSet(&B);
 
     insert(&A, 1);
-    insert(&A, 2);
-    insert(&A, 3);
     insert(&A, 4);
+    insert(&A, 6);
+    insert(&A, 3);
+    insert(&A, 11);
+    insert(&A, 8);
     insert(&A, 5);
 
+    insert(&B, 0);
+    insert(&B, 4);
+    insert(&B, 6);
+    insert(&B, 2);
+    insert(&B, 11);
+    insert(&B, 7);
+    insert(&B, 9);
+
     display(A, "A");
+    display(B, "B");
 
-    deleteElem(&A, 3);
+    Set UN = UNION(A, B);
+    display(UN, "A U B");
 
-    display(A, "Delete A");
+    Set IN = INTERSECTION(A, B);
+    display(IN, "A ^ B");
 
-    // makeNull(&A);
+    Set DI = DIFFERENCE(A, B);
+    display(DI, "A - B");
 
-    // display(A, "MakeNull A");
-
-    printf("is 1 member? %-4s\n", (isMember(A, 1)) ? "Yes" : "No");
-    printf("is 5 member? %-4s\n", (isMember(A, 5)) ? "Yes" : "No");
-    printf("is 4 member? %-4s\n", (isMember(A, 4)) ? "Yes" : "No");
-    printf("is 6 member? %-4s\n", (isMember(A, 6)) ? "Yes" : "No");
-
-    printf("Cardinaly of Set A: %d\n", cardinality(A));
+    Set SDI = SYSMETRICDIFFERENCE(A, B);
+    display(SDI, "A TRIANGLE B");
 }

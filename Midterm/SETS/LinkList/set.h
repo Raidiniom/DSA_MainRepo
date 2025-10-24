@@ -76,6 +76,146 @@ int cardinality(Set set) {
     return count;
 }
 
+Set UNION(Set a, Set b) {
+    Set UN = NULL;
+
+    Node travA = a, travB = b;
+
+    while (travA != NULL && travB != NULL)
+    {
+        if (travA->member < travB->member)
+        {
+            insert(&UN, travA->member);
+            travA = travA->next;
+        }
+        else if (travA->member > travB->member)
+        {
+            insert(&UN, travB->member);
+            travB = travB->next;
+        }
+        else
+        {
+            insert(&UN, travA->member);
+            travA = travA->next;
+            travB = travB->next;
+        }
+    }
+
+    if (travA == NULL)
+    {
+        travA = travB;
+    }
+    
+    while (travA != NULL)
+    {
+        insert(&UN, travA->member);
+        travA = travA->next;
+    }
+    
+    return UN;
+}
+
+Set INTERSECTION(Set a, Set b) {
+    Set IN = NULL;
+
+    Node tra = a, trb = b;
+
+    while (tra != NULL && trb != NULL)
+    {
+        if (tra->member == trb->member)
+        {
+            insert(&IN, tra->member);
+
+            tra = tra->next;
+            trb = trb->next;
+        }
+        else if (tra->member < trb->member)
+        {
+            tra = tra->next;
+        }
+        else
+        {
+            trb = trb->next;
+        }
+        
+    }
+
+    return IN;
+}
+
+Set DIFFERENCE(Set a, Set b) {
+    Set DI = NULL;
+
+    Node tra = a, trb = b;
+
+    while (tra != NULL && trb != NULL)
+    {
+        if (tra->member == trb->member)
+        {
+            tra = tra->next;
+            trb = trb->next;
+        }
+        else if (tra->member < trb->member)
+        {
+            insert(&DI, tra->member);
+            tra = tra->next;
+        }
+        else
+        {
+            trb = trb->next;
+        }
+
+    }
+
+    while (tra != NULL)
+    {
+        insert(&DI, tra->member);
+        tra = tra->next;
+    }
+    
+
+    return DI;
+}
+
+Set SYSMETRICDIFFERENCE(Set a, Set b) {
+    Set SDI = NULL;
+
+    Node tra = a, trb = b;
+
+    while (tra != NULL && trb != NULL)
+    {
+        if (tra->member == trb->member)
+        {
+            tra = tra->next;
+            trb = trb->next;
+        }
+        else if (tra->member < trb->member)
+        {
+            insert(&SDI, tra->member);
+            tra = tra->next;
+        }
+        else
+        {
+            insert(&SDI, trb->member);
+            trb = trb->next;
+        }
+
+    }
+
+    if (tra == NULL)
+    {
+        tra = trb;
+    }
+
+    while (tra != NULL)
+    {
+        insert(&SDI, tra->member);
+        tra = tra->next;
+    }
+
+    return SDI;
+}
+
 void display(Set set, char* setName) {
     if (set != NULL)
     {
@@ -98,9 +238,7 @@ void display(Set set, char* setName) {
     else
     {
         printf("%10s Set is Empty\n", setName);
-    }
-    
-    
+    } 
 }
 
 #endif
