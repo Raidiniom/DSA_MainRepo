@@ -38,7 +38,7 @@ void insertElem(Dictionary* dih, int element) {
     int start = index;
 
     do {
-        if ((*dih)[index].status == EMPTY || (*dih)[index].status == DELETE) {
+        if ((*dih)[index].status == EMPTY) {
             (*dih)[index].element = element;
             (*dih)[index].status = OCCUPIED;
             break;
