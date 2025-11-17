@@ -21,6 +21,16 @@ bool duplicateData(Node node, int data) {
     return (data == node->data) || (duplicateData(node->left, data)) || (duplicateData(node->right, data));
 }
 
+Node* searchNode(Node* node, int data) {
+    if (*node == NULL) return NULL;
+    if ((*node)->data == data) return node;
+
+    Node* leftSearch = searchNode(&(*node)->left, data);
+    if (leftSearch != NULL) return leftSearch;
+
+    return searchNode(&(*node)->right, data);
+}
+
 void insertNode(Node* node, int data) {
     if (duplicateData(*node, data))
     {
@@ -58,11 +68,53 @@ void insertNode(Node* node, int data) {
     
 }
 
-bool searchNode(Node node, int data) {
-    if (node == NULL) return false;
+// Helped by Chatgpt
+void deleteNode(Node* node, int data) {
+    Node* locatedNode = searchNode(node, data);
 
-    return (node->data == data) || (searchNode(node->left, data)) || (searchNode(node->right, data));
+    if (locatedNode == NULL || *locatedNode == NULL) return;
+    
+
+    Node target = *locatedNode;
+
+    if (target->left == NULL && target->right == NULL)
+    {
+        free(target);
+        *locatedNode = NULL;
+        return;
+    }
+    
+    if (target->left == NULL || target->right == NULL)
+    {
+        Node child = (target->left != NULL) ? target->left : target->right;
+        free(target);
+        *locatedNode = child;
+        return;
+    }
+    
+    Node succParent = target;
+    Node successor = target->right;
+    while (successor->left != NULL)
+    {
+        succParent = successor;
+        successor = successor->left;
+    }
+    
+    target->data = successor->data;
+    
+    if (succParent->left == successor)
+    {
+        succParent->left = successor->right;
+    }
+    else
+    {
+        succParent->right = successor->right;
+    }
+    
+
+    free(successor);
 }
+
 
 // Displaying the Tree
 void postOrder(Node node) {
