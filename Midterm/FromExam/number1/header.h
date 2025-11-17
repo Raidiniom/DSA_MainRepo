@@ -46,7 +46,7 @@ void displayPattern(int arr[]) {
     {
         printf("%d", arr[i]);
 
-        if ((i + 1) % 8 == 0)
+        if ((i + 1) % 16 == 0)
         {
             printf(" ");
         }

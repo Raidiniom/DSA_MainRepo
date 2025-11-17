@@ -1,7 +1,7 @@
 #include "header.h"
 
 void main(void) {
-    short int word[4] = {18255, 20292, 8266, 20290};
+    short int word[4]={17729,21074,18766,18259};
     int* arr = BitVectorToArray(word);
     char* message = decode(arr);
 
