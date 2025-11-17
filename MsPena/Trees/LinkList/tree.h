@@ -22,6 +22,13 @@ bool duplicateData(Node node, int data) {
 }
 
 void insertNode(Node* node, int data) {
+    if (duplicateData(*node, data))
+    {
+        printf("%d is a duplicate!\n", data);
+        return;
+    }
+    
+
     if (*node == NULL)
     {
         Node newNode = (Node) malloc(sizeof(struct node));
@@ -51,6 +58,13 @@ void insertNode(Node* node, int data) {
     
 }
 
+bool searchNode(Node node, int data) {
+    if (node == NULL) return false;
+
+    return (node->data == data) || (searchNode(node->left, data)) || (searchNode(node->right, data));
+}
+
+// Displaying the Tree
 void postOrder(Node node) {
     if (node != NULL)
     {
@@ -82,5 +96,28 @@ void inOrder(Node node) {
     }
     
 }
+
+// From ChatGPT - ASCII Tree Printer
+void printTree(Node node, int space) {
+    if (node == NULL)
+        return;
+
+    // Increase distance between levels
+    space += 5;
+
+    // Print right child first
+    printTree(node->right, space);
+
+    // Print current node after spaces
+    printf("\n");
+    for (int i = 5; i < space; i++) {
+        printf(" ");
+    }
+    printf("%d\n", node->data);
+
+    // Print left child
+    printTree(node->left, space);
+}
+
 
 #endif

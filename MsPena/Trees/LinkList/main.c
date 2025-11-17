@@ -13,14 +13,23 @@ void main() {
     insertNode(&myTree, 3);
     insertNode(&myTree, 1);
 
-    printf("\nPost Order: ");
-    postOrder(myTree);
+    printTree(myTree, 0);
+    // printf("\nPost Order: ");
+    // postOrder(myTree);
 
-    printf("\nPre Order: ");
-    preOrder(myTree);
+    // printf("\nPre Order: ");
+    // preOrder(myTree);
 
-    printf("\nIn Order: ");
-    inOrder(myTree);
+    // printf("\nIn Order: ");
+    // inOrder(myTree);
 
-    printf("\nnew insert 9 is a duplicate: %-8s", (duplicateData(myTree, 9)) ? "True" : "False");
+    // printf("\nnew insert 9 is a duplicate: %-8s\n", (duplicateData(myTree, 9)) ? "True" : "False");
+    
+    // int findNum;
+
+    // printf("Enter number to find for: ");
+    // scanf("%d", &findNum);
+
+    // printf("is %d in the Tree: %-8s\n", findNum, (searchNode(myTree, findNum)) ? "Yes" : "No");
+    
 }
