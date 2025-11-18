@@ -17,7 +17,7 @@ void main() {
     inOrder(myTree);
 
     deleteElem(&myTree, 3);
-    // deleteElem(&myTree, 14);
+    deleteElem(&myTree, 10);
 
     printf("\n[After Delete] In Order: ");
     inOrder(myTree);

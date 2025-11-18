@@ -18,7 +18,7 @@ void initTree(Node* tree) {
 void insertElem(Node* tree, int data) {
     if (*tree == NULL)
     {
-        *tree = (Node) malloc(sizeof(NodeSize));
+        *tree = (Node) malloc(sizeof(Node));
 
         (*tree)->data = data;
         (*tree)->left = NULL;
@@ -34,11 +34,15 @@ void insertElem(Node* tree, int data) {
             insertNode = (data < (*insertNode)->data) ? &(*insertNode)->left : &(*insertNode)->right;
         }
         
-        *insertNode = (Node) malloc(sizeof(NodeSize));
+        if (*insertNode == NULL)
+        {
+            *insertNode = (Node) malloc(sizeof(NodeSize));
 
-        (*insertNode)->data = data;
-        (*insertNode)->left = NULL;
-        (*insertNode)->right = NULL;
+            (*insertNode)->data = data;
+            (*insertNode)->left = NULL;
+            (*insertNode)->right = NULL;
+        }
+        
 
     }
 
