@@ -16,34 +16,20 @@ void initTree(Node* tree) {
 }
 
 void insertElem(Node* tree, int data) {
-    if (*tree == NULL)
+    Node* insert = tree;
+
+    while (*insert != NULL && data != (*insert)->data)
     {
-        *tree = (Node) malloc(sizeof(Node));
-
-        (*tree)->data = data;
-        (*tree)->left = NULL;
-        (*tree)->right = NULL;
-
+        insert = (data < (*insert)->data) ? &(*insert)->left : &(*insert)->right;
     }
-    else
+    
+    if (*insert == NULL)
     {
-        Node* insertNode = tree;
+        *insert = (Node) malloc(sizeof(NodeSize));
 
-        while (*insertNode != NULL && (*insertNode)->data != data)
-        {
-            insertNode = (data < (*insertNode)->data) ? &(*insertNode)->left : &(*insertNode)->right;
-        }
-        
-        if (*insertNode == NULL)
-        {
-            *insertNode = (Node) malloc(sizeof(NodeSize));
-
-            (*insertNode)->data = data;
-            (*insertNode)->left = NULL;
-            (*insertNode)->right = NULL;
-        }
-        
-
+        (*insert)->data = data;
+        (*insert)->left = NULL;
+        (*insert)->right = NULL;
     }
 
 }
@@ -107,6 +93,14 @@ void deleteElem(Node* tree, int data) {
     }
     
 
+}
+
+void makeNull(Node* tree, int data) {
+    while (*tree != NULL)
+    {
+        deleteElem(tree, data);
+    }
+    
 }
 
 void inOrder(Node tree) {
