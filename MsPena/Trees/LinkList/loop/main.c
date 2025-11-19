@@ -14,7 +14,7 @@ void main() {
     insertElem(&myTree, 9);
     insertElem(&myTree, 14);
 
-    printf("\nPost Order: ");
+    printf("Post Order: ");
     postOrder(myTree);
 
     deleteElem(&myTree, 3);
@@ -23,13 +23,7 @@ void main() {
     printf("\n[After Delete] Post Order: ");
     postOrder(myTree);
 
-    makeNull(&myTree, myTree->data);
-
-    // while (myTree != NULL)
-    // {
-    //     deleteElem(&myTree, myTree->data);
-    // }
-    
+    makeNull(&myTree);
 
     printf("\n[After makeNull] Post Order: ");
     postOrder(myTree);

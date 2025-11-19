@@ -1,6 +1,35 @@
 #ifndef TREE_H
 #define TREE_H
 
+/**
+ * @file     tree.h
+ * @brief    Binary Search Tree (BST) implementation in C
+ *
+ * Detailed description:
+ * This header file implements a Binary Search Tree (BST) using dynamic
+ * memory allocation. It provides the fundamental operations for
+ * initializing a tree, inserting elements, deleting nodes, clearing
+ * the entire tree, and performing the three standard tree traversals
+ * (in-order, pre-order, and post-order).
+ *
+ * Functions implemented:
+ *  - initTree      : Initializes the tree to NULL
+ *  - insertElem    : Inserts an integer into the BST
+ *  - deleteElem    : Removes an integer from the BST using successor replacement
+ *  - makeNull      : Recursively clears the entire BST and frees memory
+ *  - inOrder       : Displays elements in L–Root–R order
+ *  - preOrder      : Displays elements in Root–L–R order
+ *  - postOrder     : Displays elements in L–R–Root order
+ *
+ * This implementation uses pointers-to-pointers extensively to allow direct
+ * modification of tree links during insertion and deletion.
+ *
+ * @author   Voltaire Ratilla
+ * @date     Created:   18/11/2025
+ * @date     Completed: 19/11/2025
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -95,10 +124,10 @@ void deleteElem(Node* tree, int data) {
 
 }
 
-void makeNull(Node* tree, int data) {
+void makeNull(Node* tree) {
     while (*tree != NULL)
     {
-        deleteElem(tree, data);
+        deleteElem(tree, (*tree)->data);
     }
     
 }

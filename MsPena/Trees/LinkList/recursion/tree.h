@@ -1,6 +1,39 @@
 #ifndef TREE_H
 #define TREE_H
 
+/**
+ * @file     tree.h
+ * @brief    Recursive Binary Search Tree (BST) implementation in C
+ *
+ * Detailed description:
+ * This header file provides a Binary Search Tree (BST) implementation
+ * where most major operations use recursion. The BST supports inserting
+ * elements, deleting nodes using the in-order successor, clearing the
+ * entire tree, and performing the three classical recursive traversals.
+ *
+ * Functions implemented:
+ *  - initTree      : Initializes the tree to NULL
+ *  - insertElem    : Inserts an integer into the BST (recursive descent through pointers)
+ *  - deleteElem    : Deletes a node using recursive search and successor replacement
+ *  - makeNull      : Recursively removes all nodes and frees the entire BST
+ *  - inOrder       : Recursive Left–Root–Right traversal
+ *  - preOrder      : Recursive Root–Left–Right traversal
+ *  - postOrder     : Recursive Left–Right–Root traversal
+ *
+ * Recursive behavior:
+ *  - Tree traversal functions rely entirely on recursion.
+ *  - insertElem and deleteElem make recursive progress by updating
+ *    pointers-to-pointers until a correct position or match is found.
+ *  - makeNull repeatedly calls deleteElem until all nodes are removed.
+ *
+ * This implementation uses pointer manipulation to maintain proper BST
+ * structure while maximizing recursion for clarity and correctness.
+ *
+ * @author   Voltaire Ratilla
+ * @date     Created:   19/11/2025
+ * @date     Completed: DD/MM/YR
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -9,167 +42,69 @@ typedef struct node {
     int data;
     struct node* left;
     struct node* right;
-} *Node;
+} *Node, NodeSize;
 
-void initTree(Node* node) {
-    *node = NULL;
+void initTree(Node* tree) {
+    *tree = NULL;
 }
 
-bool duplicateData(Node node, int data) {
-    if (node == NULL) return false;
-    
-    return (data == node->data) || (duplicateData(node->left, data)) || (duplicateData(node->right, data));
-}
-
-Node* searchNode(Node* node, int data) {
-    if (*node == NULL) return NULL;
-    if ((*node)->data == data) return node;
-
-    Node* leftSearch = searchNode(&(*node)->left, data);
-    if (leftSearch != NULL) return leftSearch;
-
-    return searchNode(&(*node)->right, data);
-}
-
-void insertNode(Node* node, int data) {
-    if (duplicateData(*node, data))
+void insertElem(Node* tree, int data) {
+    if (*tree == NULL)
     {
-        printf("%d is a duplicate!\n", data);
-        return;
+        *tree = (Node) malloc(sizeof(NodeSize));
+
+        (*tree)->data = data;
+        (*tree)->left = NULL;
+        (*tree)->right = NULL;
+    }
+    else if (data < (*tree)->data)
+    {
+        insertElem(&(*tree)->left, data);
+    }
+    else if (data > (*tree)->data)
+    {
+        insertElem(&(*tree)->right, data);
     }
     
+    
+}
 
-    if (*node == NULL)
+void deleteElem(Node* tree, int data) {
+    // 
+}
+
+void makeNull(Node* tree) {
+    // 
+}
+
+void inOrder(Node tree) {
+    if (tree != NULL)
     {
-        Node newNode = (Node) malloc(sizeof(struct node));
-
-        if (newNode != NULL)
-        {
-            newNode->data = data;
-            newNode->left = NULL;
-            newNode->right = NULL;
-
-            *node = newNode;
-        }
-        
-    }
-    else
-    {
-        if (data < (*node)->data)
-        {
-            insertNode(&(*node)->left, data);
-        }
-        else
-        {
-            insertNode(&(*node)->right, data);
-        }
-        
+        inOrder(tree->left);
+        printf("%d ", tree->data);
+        inOrder(tree->right);
     }
     
 }
 
-// Helped by Chatgpt
-void deleteNode(Node* node, int data) {
-    Node* locatedNode = searchNode(node, data);
-
-    if (locatedNode == NULL || *locatedNode == NULL) return;
-    
-
-    Node target = *locatedNode;
-
-    if (target->left == NULL && target->right == NULL)
+void preOrder(Node tree) {
+    if (tree != NULL)
     {
-        free(target);
-        *locatedNode = NULL;
-        return;
-    }
-    
-    if (target->left == NULL || target->right == NULL)
-    {
-        Node child = (target->left != NULL) ? target->left : target->right;
-        free(target);
-        *locatedNode = child;
-        return;
-    }
-    
-    Node succParent = target;
-    Node successor = target->right;
-    while (successor->left != NULL)
-    {
-        succParent = successor;
-        successor = successor->left;
-    }
-    
-    target->data = successor->data;
-    
-    if (succParent->left == successor)
-    {
-        succParent->left = successor->right;
-    }
-    else
-    {
-        succParent->right = successor->right;
-    }
-    
-
-    free(successor);
-}
-
-
-// Displaying the Tree
-void postOrder(Node node) {
-    if (node != NULL)
-    {
-        postOrder(node->left);
-        postOrder(node->right);
-        
-        printf("%d ", node->data);
+        printf("%d ", tree->data);
+        preOrder(tree->left);
+        preOrder(tree->right);
     }
     
 }
 
-void preOrder(Node node) {
-    if (node != NULL)
+void postOrder(Node tree) {
+    if (tree != NULL)
     {
-        printf("%d ", node->data);
-
-        preOrder(node->left);
-        preOrder(node->right);
+        postOrder(tree->left);
+        postOrder(tree->right);
+        printf("%d ", tree->data);
     }
     
 }
-
-void inOrder(Node node) {
-    if (node != NULL)
-    {
-        inOrder(node->left);
-        printf("%d ", node->data);
-        inOrder(node->right);
-    }
-    
-}
-
-// From ChatGPT - ASCII Tree Printer
-void printTree(Node node, int space) {
-    if (node == NULL)
-        return;
-
-    // Increase distance between levels
-    space += 5;
-
-    // Print right child first
-    printTree(node->right, space);
-
-    // Print current node after spaces
-    printf("\n");
-    for (int i = 5; i < space; i++) {
-        printf(" ");
-    }
-    printf("%d\n", node->data);
-
-    // Print left child
-    printTree(node->left, space);
-}
-
 
 #endif

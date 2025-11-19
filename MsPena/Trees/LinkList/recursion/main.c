@@ -4,20 +4,18 @@ void main() {
     Node myTree;
     initTree(&myTree);
 
-    insertNode(&myTree, 5);
-    insertNode(&myTree, 4);
-    insertNode(&myTree, 7);
-    insertNode(&myTree, 9);
-    insertNode(&myTree, 6);
-    insertNode(&myTree, 2);
-    insertNode(&myTree, 3);
-    insertNode(&myTree, 1);
+    insertElem(&myTree, 6);
+    insertElem(&myTree, 2);
+    insertElem(&myTree, 7);
+    insertElem(&myTree, 3);
+    insertElem(&myTree, 1);
+    insertElem(&myTree, 10);
+    insertElem(&myTree, 3);
+    insertElem(&myTree, 4);
+    insertElem(&myTree, 9);
+    insertElem(&myTree, 21);
+    insertElem(&myTree, 5);
 
-    printf("Initial Tree\nRoot ------>\n");
-    printTree(myTree, 0);
-
-    deleteNode(&myTree, 4);
-
-    printf("Delete one Node in Tree\n");
-    printTree(myTree, 0);
+    printf("Initial Tree\n");
+    postOrder(myTree);
 }
