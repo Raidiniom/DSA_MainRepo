@@ -18,4 +18,14 @@ void main() {
 
     printf("Initial Tree\n");
     postOrder(myTree);
+
+    deleteElem(&myTree, 7);
+
+    printf("\nDelete 1 elem in Tree\n");
+    postOrder(myTree);
+
+    makeNull(&myTree);
+
+    printf("\nmakeNull Tree\n");
+    postOrder(myTree);
 }

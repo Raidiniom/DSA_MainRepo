@@ -70,11 +70,63 @@ void insertElem(Node* tree, int data) {
 }
 
 void deleteElem(Node* tree, int data) {
-    // 
+    if (*tree == NULL)
+    {
+        printf("Element not found!\n");
+        return;
+    }
+
+    
+    if (data < (*tree)->data)
+    {
+        deleteElem(&(*tree)->left, data);
+    }
+    else if (data > (*tree)->data)
+    {
+        deleteElem(&(*tree)->right, data);
+    }
+    else
+    {
+        Node deleteNode = *tree;
+
+        if (deleteNode->left == NULL)
+        {
+            *tree = deleteNode->right;
+            free(deleteNode);
+        }
+        else if (deleteNode->right == NULL)
+        {
+            *tree = deleteNode->left;
+            free(deleteNode);
+        }
+        else
+        {
+            // Successor
+            Node* successor = &deleteNode->right;
+
+            while ((*successor)->left != NULL)
+            {
+                successor = &(*successor)->left;
+            }
+            
+            deleteNode->data = (*successor)->data;
+
+            Node hold = *successor;
+            *successor = (*successor)->right;
+            free(hold);
+
+        }
+        
+    }
+        
 }
 
 void makeNull(Node* tree) {
-    // 
+    if (*tree == NULL) return;
+
+    deleteElem(tree, (*tree)->data);
+
+    makeNull(tree);
 }
 
 void inOrder(Node tree) {
