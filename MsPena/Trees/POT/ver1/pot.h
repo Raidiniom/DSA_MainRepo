@@ -1,6 +1,10 @@
 #ifndef POT_H
 #define POT_H
 
+/**
+ * This header file code is shiet need to rework this
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
