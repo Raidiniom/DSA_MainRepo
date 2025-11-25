@@ -3,7 +3,10 @@
 void main() {
     Graph grp = createGraph();
 
-    insertNode(&grp, 'A', 'B', 5);
+    createArc(&grp, 'A', 'B', 10);
+    createArc(&grp, 'A', 'C', 5);
 
     displayGraph(grp);
+
+    freeGraph(&grp);
 }
