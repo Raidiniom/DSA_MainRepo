@@ -39,4 +39,10 @@ void main() {
 
     SET* CO = COMPLEMENT(*universal, A);
     displaySet(*CO, "A'");
+
+    free(universal);
+    free(DIF);
+    free(SYMDIF);
+    free(IN);
+    free(CO);
 }

@@ -97,8 +97,6 @@ void insert(SET* A, int number) {
         newNode->member = number;
         // newNode->next = *A;
         // *A = newNode;
-
-        // Code below will make the insert function into an insert sorted
         Node* trav = A;
         
         for (; *trav != NULL && (*trav)->member < number; trav = &(*trav)->next){}
