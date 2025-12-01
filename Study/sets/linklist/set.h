@@ -58,14 +58,85 @@ Set UNION(Set a, Set b) {
 
         if (*utra != NULL)
         {
-            /* code */
+            if (atra->member < btra->member)
+            {
+                (*utra)->member = atra->member;
+                atra = atra->link;
+            }
+            else
+            {
+                if (btra->member == atra->member) atra = atra->link;
+
+                (*utra)->member = btra->member;
+                btra = btra->link;
+            }
+            
         }
         
         utra = &(*utra)->link;
     }
-    
 
+    if (btra != NULL) atra = btra;
+
+    for (; atra != NULL; atra = atra->link)
+    {
+        *utra = malloc(sizeof(Node));
+        if (utra != NULL)
+        {
+            (*utra)->member = atra->member;
+            utra = &(*utra)->link;
+        }
+        
+    }
+
+    *utra = NULL;
     return u;
+}
+
+Set INTERSECTION(Set a, Set b) {
+    Set i = NULL;
+    Node atra = a, btra = b, *itra = &i;
+
+    while (atra != NULL && btra != NULL)
+    {
+        
+        if (atra->member == btra->member)
+        {
+            *itra = malloc(sizeof(Node));
+            if (*itra != NULL)
+            {
+                (*itra)->member = atra->member;
+                itra = &(*itra)->link;
+            }
+            
+            atra = atra->link;
+            btra = btra->link;
+        }
+        else if (atra->member < btra->member)
+        {
+            atra = atra->link;
+        }
+        else
+        {
+            btra = btra->link;
+        }
+    
+    }
+
+    *itra = NULL;
+    return i;
+}
+
+Set DIFFERENCE(Set a, Set b) {
+    // 
+}
+
+Set SYMMETRIC_DIFFERENCE(Set a, Set b) {
+    // 
+}
+
+Set COMPLEMENT(Set universal, Set a) {
+    // 
 }
 
 void displaySet(Set s, char* label) {

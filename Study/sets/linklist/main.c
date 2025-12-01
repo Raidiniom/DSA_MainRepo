@@ -19,6 +19,9 @@ void main() {
     displaySet(a, "A");
     displaySet(b, "B");
 
-    Set* universal = UNION(a, b);
-    displaySet(*universal, "A v B");
+    Set universal = UNION(a, b);
+    displaySet(universal, "A v B");
+
+    Set intersection = INTERSECTION(a, b);
+    displaySet(intersection, "A ^ B");
 }
