@@ -19,6 +19,6 @@ void main() {
     displaySet(a, "A");
     displaySet(b, "B");
 
-    free(a);
-    free(b);
+    Set* universal = UNION(a, b);
+    displaySet(*universal, "A v B");
 }

@@ -26,9 +26,46 @@ void insertMember(Set* s, int member) {
 
         newNode->link = *trav;
         *trav = newNode;
+    }
+    
+}
+
+void deleteMember(Set* s, int member) {
+    if (*s != NULL)
+    {
+        Node* trav = s;
+        for (; *trav != NULL && (*trav)->member != member; trav = &(*trav)->link){}
+
+        if (*trav != NULL)
+        {
+            Node del = *trav;
+            *trav = del->link;
+            
+            free(del);
+        }
         
     }
     
+}
+
+Set UNION(Set a, Set b) {
+    Set u = NULL;
+    Node atra = a, btra = b, *utra = &u;
+
+    while (atra != NULL && btra != NULL)
+    {
+        *utra = malloc(sizeof(Node));
+
+        if (*utra != NULL)
+        {
+            /* code */
+        }
+        
+        utra = &(*utra)->link;
+    }
+    
+
+    return u;
 }
 
 void displaySet(Set s, char* label) {
