@@ -128,7 +128,10 @@ Set INTERSECTION(Set a, Set b) {
 }
 
 Set DIFFERENCE(Set a, Set b) {
-    // 
+    Set* d = NULL;
+    Node atra = a, btra = b, *dtra = d;
+
+    return d;
 }
 
 Set SYMMETRIC_DIFFERENCE(Set a, Set b) {
