@@ -13,6 +13,8 @@ void main() {
     insertData(&a, 8);
     insertData(&a, 3);
 
+    rootCheck(a);
+
     printf("In Order: ");
     inOrder(a);
     printf("\nPre Order: ");
@@ -20,5 +22,10 @@ void main() {
     printf("\nPost Order: ");
     postOrder(a);
 
-    deleteData(&a, 9);
+    deleteData(&a, 7);
+
+    printf("\n[After Delete] In Order: ");
+    inOrder(a);
+
+    rootCheck(a);
 }

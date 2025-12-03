@@ -15,6 +15,10 @@ void initTree(Node* tr) {
     *tr = NULL;
 }
 
+void rootCheck(Node tr) {
+    printf("\nroot is %d\n", tr->data);
+}
+
 void insertData(Node* tr, int data) {
     Node* in = tr;
 
@@ -37,28 +41,37 @@ void insertData(Node* tr, int data) {
 void deleteData(Node* tr, int data) {
     Node* de = tr;
 
-    while (*de != NULL && data != (*de)->data)
+    while (*de != NULL && (*de)->data != data)
     {
         de = (data < (*de)->data) ? &(*de)->left : &(*de)->right;
     }
     
     if (*de != NULL)
     {
-        printf("\n[DEBUG] Node: %d, Left: %d, Right: %d", (*de)->data, ((*de)->left) ? (*de)->left->data : INT_MAX, ((*de)->right) ? (*de)->right->data : INT_MAX);
-
         Node delNode = *de;
 
-        if ((*de)->left == NULL)
+        if (delNode->left == NULL)
         {
-            de = &(*de)->right;
+            *de = delNode->right;
+            free(delNode);
         }
-        else if ((*de)->right == NULL)
+        else if (delNode->right == NULL)
         {
-            de = &(*de)->left;
+            *de = delNode->left;
+            free(delNode);
         }
         else
         {
-            /* code */
+            Node* successor = &delNode->right;
+
+            for (; (*successor)->left != NULL; successor = &(*successor)->left){}
+
+            delNode->data = (*successor)->data;
+
+            Node hold = *successor;
+            *successor = (*successor)->right;
+            free(hold);
+            
         }
         
     }
