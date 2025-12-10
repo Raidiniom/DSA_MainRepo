@@ -18,10 +18,12 @@ void main() {
 
     displayDAL(G, "DIRECTED GRAPH");
 
-    // int visited[maxsize] = {0};
-    // DFS(G, 'A', visited);
-    printf("\n");
+    printf("\n--- DFS Traversal ---\n");
+    int visited[maxsize] = {0};
+    DFS(G, 'A', visited);
 
+
+    printf("\n--- BFS Traversal ---\n");
     BFS(G, 'A');
 
     // DirectedAdjList H;

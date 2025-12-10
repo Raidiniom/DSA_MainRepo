@@ -165,28 +165,22 @@ void BFS(DirectedAdjList G, char src) {
     
     initQueue(&q);
     
+    // Mark source as visited and enqueue
     visited[src - 'A'] = 1;
     enqueue(&q, src);
     
-    printf("BFS starting from %c:\n", src);
+    printf("BFS starting from %c: ", src);
     
-    int step = 0;
-    while (q.front != NULL && step < 20) {  // Limit steps for debugging
-        printf("Step %d: Queue: ", ++step);
-        debugQueue(q);
-        
+    while (q.front != NULL) {
+        // Get front vertex
         char currV = q.front->vertex;
-        printf(" | Processing: %c | Adjacent: ", currV);
+        printf("%c ", currV);
         
-        // Show adjacent vertices
-        AdjList trav;
-        for (trav = G.head[currV - 'A']; trav != NULL; trav = trav->link) {
-            printf("%c ", trav->info.tail);
-        }
-        
+        // Dequeue
         dequeue(&q);
         
-        // Enqueue unvisited neighbors
+        // Visit all adjacent vertices
+        AdjList trav;
         for (trav = G.head[currV - 'A']; trav != NULL; trav = trav->link) {
             char adjVertex = trav->info.tail;
             int idx = adjVertex - 'A';
@@ -194,15 +188,10 @@ void BFS(DirectedAdjList G, char src) {
             if (idx >= 0 && idx < maxsize && !visited[idx]) {
                 visited[idx] = 1;
                 enqueue(&q, adjVertex);
-                printf("(enqueued %c) ", adjVertex);
             }
         }
-        printf("\n");
     }
-    
-    if (step >= 20) {
-        printf("Stopped after 20 steps to prevent infinite loop\n");
-    }
+    printf("\n");
 }
 
 void displayDAL(DirectedAdjList dal, char* label) {

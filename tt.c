@@ -5,11 +5,7 @@
 typedef char* String;
 
 void main() {
-    String myMessage = "Cyrene: Hello Wolrd";
-    String emptyMessage = malloc(sizeof(char) * 64);
+    char src = 'A';
 
-    strcpy(emptyMessage, "Proi Proi Proi Proi");
-
-    printf("%-32s\n", myMessage); // Works
-    printf("%-32s\n", emptyMessage); // Does not work
+    printf("%d", src - 'A');
 }
