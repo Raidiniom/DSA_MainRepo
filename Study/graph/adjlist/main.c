@@ -22,41 +22,62 @@ void main() {
     int visited[maxsize] = {0};
     DFS(G, 'A', visited);
 
-
-    printf("\n--- BFS Traversal ---\n");
+    printf("\n\n--- BFS Traversal ---\n");
     BFS(G, 'A');
 
-    // DirectedAdjList H;
-    // initDAL(&H);
+    // =============================
+    // DIJKSTRA
+    // =============================
+    printf("\n\n--- DIJKSTRA (from A) ---\n");
+    dijkstra(G, 'A');
 
-    // // A - B
-    // addEdge(&H, 'A', createEdgeType('B', 4));
-    // addEdge(&H, 'B', createEdgeType('A', 4));
+    // =============================
+    // WARSHALL (TRANSITIVE CLOSURE)
+    // =============================
+    printf("\n\n--- WARSHALL ---\n");
+    warshall(G);
 
-    // // A - C
-    // addEdge(&H, 'A', createEdgeType('C', 2));
-    // addEdge(&H, 'C', createEdgeType('A', 2));
 
-    // // B - C
-    // addEdge(&H, 'B', createEdgeType('C', 5));
-    // addEdge(&H, 'C', createEdgeType('B', 5));
 
-    // // B - D
-    // addEdge(&H, 'B', createEdgeType('D', 10));
-    // addEdge(&H, 'D', createEdgeType('B', 10));
+    // =============================
+    // UNDIRECTED GRAPH FOR MST
+    // =============================
+    DirectedAdjList H;
+    initDAL(&H);
 
-    // // C - E
-    // addEdge(&H, 'C', createEdgeType('E', 3));
-    // addEdge(&H, 'E', createEdgeType('C', 3));
+    addEdge(&H, 'A', createEdgeType('B', 4));
+    addEdge(&H, 'B', createEdgeType('A', 4));
 
-    // // D - E
-    // addEdge(&H, 'D', createEdgeType('E', 4));
-    // addEdge(&H, 'E', createEdgeType('D', 4));
+    addEdge(&H, 'A', createEdgeType('C', 2));
+    addEdge(&H, 'C', createEdgeType('A', 2));
 
-    // // E - A
-    // addEdge(&H, 'E', createEdgeType('A', 7));
-    // addEdge(&H, 'A', createEdgeType('E', 7));
+    addEdge(&H, 'B', createEdgeType('C', 5));
+    addEdge(&H, 'C', createEdgeType('B', 5));
 
-    // displayDAL(H, "UNDIRECTED GRAPH");
+    addEdge(&H, 'B', createEdgeType('D', 10));
+    addEdge(&H, 'D', createEdgeType('B', 10));
 
+    addEdge(&H, 'C', createEdgeType('E', 3));
+    addEdge(&H, 'E', createEdgeType('C', 3));
+
+    addEdge(&H, 'D', createEdgeType('E', 4));
+    addEdge(&H, 'E', createEdgeType('D', 4));
+
+    addEdge(&H, 'E', createEdgeType('A', 7));
+    addEdge(&H, 'A', createEdgeType('E', 7));
+
+    printf("\n\n--- UNDIRECTED GRAPH FOR MST ---\n");
+    displayDAL(H, "UNDIRECTED GRAPH");
+
+    // =============================
+    // PRIM
+    // =============================
+    printf("\n\n--- PRIM'S MST ---\n");
+    prim(H);
+
+    // =============================
+    // KRUSKAL
+    // =============================
+    printf("\n\n--- KRUSKAL'S MST ---\n");
+    kruskal(H);
 }

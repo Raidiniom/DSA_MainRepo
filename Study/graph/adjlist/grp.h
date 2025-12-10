@@ -32,6 +32,12 @@ typedef struct {
     Node rear;
 } Queue;
 
+// For kruskal
+typedef struct {
+    int u, v;
+    int weight;
+} Edge;
+
 // Queue
 void initQueue(Queue* q) {
     q->front = NULL;
@@ -194,6 +200,173 @@ void BFS(DirectedAdjList G, char src) {
     printf("\n");
 }
 
+// Algos
+void toMatrix(DirectedAdjList G, int matrix[maxsize][maxsize]) {
+    for (int i = 0; i < maxsize; i++) {
+        for (int j = 0; j < maxsize; j++) {
+            matrix[i][j] = 0; 
+        }
+    }
+
+    for (int i = 0; i < maxsize; i++) {
+        AdjList trav = G.head[i];
+        while (trav != NULL) {
+            int col = trav->info.tail - 'A';
+            matrix[i][col] = trav->info.weight;
+            trav = trav->link;
+        }
+    }
+}
+
+int find(int parent[], int x) {
+    if (parent[x] == x) return x;
+    return parent[x] = find(parent, parent[x]);
+}
+
+void unite(int parent[], int a, int b) {
+    a = find(parent, a);
+    b = find(parent, b);
+    parent[b] = a;
+}
+
+void dijkstra(DirectedAdjList G, char src) {
+    int matrix[maxsize][maxsize];
+    toMatrix(G, matrix);
+
+    int dist[maxsize];
+    int visited[maxsize] = {0};
+
+    for (int i = 0; i < maxsize; i++)
+        dist[i] = 9999;
+
+    int s = src - 'A';
+    dist[s] = 0;
+
+    for (int step = 0; step < maxsize; step++) {
+        // Step 1: get minimum distance unvisited
+        int minDist = 9999, u = -1;
+        for (int i = 0; i < maxsize; i++) {
+            if (!visited[i] && dist[i] < minDist) {
+                minDist = dist[i];
+                u = i;
+            }
+        }
+
+        if (u == -1) break; 
+        visited[u] = 1;
+
+        // Step 2: relax neighbors
+        for (int v = 0; v < maxsize; v++) {
+            if (matrix[u][v] > 0 && !visited[v]) {
+                int newDist = dist[u] + matrix[u][v];
+                if (newDist < dist[v]) {
+                    dist[v] = newDist;
+                }
+            }
+        }
+    }
+
+    printf("\nDijkstra from %c:\n", src);
+    for (int i = 0; i < maxsize; i++)
+        printf("%c : %d\n", 'A' + i, dist[i]);
+}
+
+void prim(DirectedAdjList G) {
+    int matrix[maxsize][maxsize];
+    toMatrix(G, matrix);
+
+    int inMST[maxsize] = {0};
+    int edgeCount = 0;
+
+    inMST[0] = 1;  // Start at A
+
+    printf("\nPrim's MST Edges:\n");
+
+    while (edgeCount < maxsize - 1) {
+        int min = 9999;
+        int u = -1, v = -1;
+
+        for (int i = 0; i < maxsize; i++) {
+            if (inMST[i]) {
+                for (int j = 0; j < maxsize; j++) {
+                    if (!inMST[j] && matrix[i][j] > 0 && matrix[i][j] < min) {
+                        min = matrix[i][j];
+                        u = i;
+                        v = j;
+                    }
+                }
+            }
+        }
+
+        if (u == -1) break;
+
+        printf("%c - %c (%d)\n", 'A'+u, 'A'+v, min);
+        inMST[v] = 1;
+        edgeCount++;
+    }
+}
+
+void kruskal(DirectedAdjList G) {
+    int matrix[maxsize][maxsize];
+    toMatrix(G, matrix);
+
+    Edge edges[50];
+    int ecount = 0;
+
+    for (int i = 0; i < maxsize; i++)
+        for (int j = i + 1; j < maxsize; j++)
+            if (matrix[i][j] > 0) {
+                edges[ecount++] = (Edge){i, j, matrix[i][j]};
+            }
+
+    // sort edges
+    for (int i = 0; i < ecount; i++)
+        for (int j = i + 1; j < ecount; j++)
+            if (edges[j].weight < edges[i].weight) {
+                Edge temp = edges[i];
+                edges[i] = edges[j];
+                edges[j] = temp;
+            }
+
+    int parent[maxsize];
+    for (int i = 0; i < maxsize; i++) parent[i] = i;
+
+    printf("\nKruskal's MST Edges:\n");
+
+    for (int i = 0; i < ecount; i++) {
+        int u = edges[i].u;
+        int v = edges[i].v;
+
+        if (find(parent, u) != find(parent, v)) {
+            unite(parent, u, v);
+            printf("%c - %c (%d)\n", 'A'+u, 'A'+v, edges[i].weight);
+        }
+    }
+}
+
+void warshall(DirectedAdjList G) {
+    int reach[maxsize][maxsize];
+    toMatrix(G, reach);
+
+    // convert weights to boolean reachability
+    for (int i = 0; i < maxsize; i++)
+        for (int j = 0; j < maxsize; j++)
+            reach[i][j] = reach[i][j] > 0 ? 1 : 0;
+
+    for (int k = 0; k < maxsize; k++)
+        for (int i = 0; i < maxsize; i++)
+            for (int j = 0; j < maxsize; j++)
+                reach[i][j] |= (reach[i][k] && reach[k][j]);
+
+    printf("\nWarshall Reachability Matrix:\n");
+    for (int i = 0; i < maxsize; i++) {
+        for (int j = 0; j < maxsize; j++)
+            printf("%d ", reach[i][j]);
+        printf("\n");
+    }
+}
+
+// Display
 void displayDAL(DirectedAdjList dal, char* label) {
     printf("%-16s\n", label);
     for (int i = 0; i < maxsize; i++)
