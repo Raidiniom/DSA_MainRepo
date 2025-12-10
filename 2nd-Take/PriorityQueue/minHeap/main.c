@@ -27,6 +27,18 @@ void main() {
         insert(&minHp, unli.arr[i]);
     }
     
-
     displayHeap(minHp, "Min Heap");
+
+    printf("count %d retainCount %d\n\n", minHp.count, minHp.retainCount);
+
+    List fromDelete;
+    initList(&fromDelete);
+
+    printf("DeleteMin looped for all\n");
+    for (int i = 0; i < minHp.retainCount; i++)
+    {
+        insertList(&fromDelete, Deletemin(&minHp));
+    }
+    
+    displayList(fromDelete, "fromDelete List");
 }
