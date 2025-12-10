@@ -37,6 +37,15 @@ void initADTList(ADTlist* adt) {
     adt->count = 0;
 }
 
+int findData(ADTlist adt, char* fname, char* lname) {
+    for (int i = 0; i < adt.count; i++)
+    {
+        if (strcmp(adt.list[i].fname, fname) == 0 && strcmp(adt.list[i].lname, lname) == 0) return i;
+        
+    }
+    
+}
+
 void insertData(ADTlist* adt, Persontype person) {
     if (adt->count < MAX)
     {
@@ -45,7 +54,19 @@ void insertData(ADTlist* adt, Persontype person) {
     
 }
 
-void displayADTList(ADTlist adt) {
+void deleteData(ADTlist* adt, char* fname, char* lname) {
+    int location = findData(*adt, fname, lname);
+
+    for (int i = location; i < adt->count; i++)
+    {
+        adt->list[i] = adt->list[i + 1];
+    }
+    
+    adt->count--;
+}
+
+void displayADTList(ADTlist adt, char* label) {
+    printf("%-20s\n", label);
     for (int i = 0; i < adt.count; i++)
     {
         displayPerson(adt.list[i]);
