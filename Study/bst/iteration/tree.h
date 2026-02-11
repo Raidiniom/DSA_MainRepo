@@ -29,7 +29,7 @@ void insertData(Node* tr, int data) {
 
     if (*in == NULL)
     {
-        *in = malloc(sizeof(Node));
+        *in = malloc(sizeof(struct node));
 
         (*in)->data = data;
         (*in)->left = NULL;
